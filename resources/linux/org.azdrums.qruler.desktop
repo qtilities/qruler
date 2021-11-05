@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=QRuler
+Comment=Simple ruler tool
+Comment[it]=Righello
+Exec=qruler
+Icon=qruler
+Categories=Qt;Utility;

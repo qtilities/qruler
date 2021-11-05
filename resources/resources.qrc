@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="appicon">icons/qruler.svg</file>
+        <file alias="application-exit">icons/application-exit.svgz</file>
+        <file alias="help-about">icons/help-about.svgz</file>
+        <file>about.html</file>
+        <file alias="preferences-system">icons/preferences-system.svgz</file>
+    </qresource>
+</RCC>
