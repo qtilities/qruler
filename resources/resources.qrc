@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="appicon">icons/qruler.svg</file>
         <file>about.html</file>
     </qresource>
 </RCC>

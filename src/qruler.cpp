@@ -62,7 +62,7 @@ azd::QRuler::QRuler(QWidget* parent)
 
     setMouseTracking(true);
     setWindowTitle(QCoreApplication::applicationName());
-    setWindowIcon(QIcon(":appicon"));
+    // setWindowIcon(QIcon(":appicon"));
 
     loadSettings();
 }
