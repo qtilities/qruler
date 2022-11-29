@@ -36,22 +36,19 @@ azd::QRuler::QRuler(QWidget* parent)
     : QWidget(parent)
     , mnuContext_(new QMenu(this))
 {
-    QIcon iconQuit = QIcon::fromTheme("application-exit", QIcon(":/application-exit"));
-    QAction* actQuit = new QAction(iconQuit, tr("Quit"), this);
+    QAction* actQuit = new QAction(QIcon::fromTheme("application-exit"), tr("Quit"), this);
     QKeySequence seqQuit = QKeySequence(Qt::CTRL + Qt::Key_Q);
     QShortcut* sctQuit = new QShortcut(seqQuit, this);
-    actQuit->setShortcut(seqQuit);
+    actQuit->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     connect(actQuit, &QAction::triggered, QCoreApplication::instance(), &QCoreApplication::quit);
     connect(sctQuit, &QShortcut::activated, QCoreApplication::instance(), &QCoreApplication::quit);
 
-    QIcon iconAbout = QIcon::fromTheme("help-about", QIcon(":/help-about"));
-    QAction* actAbout = new QAction(iconAbout, "About", this);
+    QAction* actAbout = new QAction(QIcon::fromTheme("help-about"), "About", this);
     connect(actAbout, &QAction::triggered, this, &QRuler::onAboutClicked);
 
     Application* theApp = static_cast<Application*>(qApp);
 
-    QIcon iconPrefs = QIcon::fromTheme("preferences-system", QIcon(":/preferences-system"));
-    QAction* actPrefs = new QAction(iconPrefs, "Preferences", this);
+    QAction* actPrefs = new QAction(QIcon::fromTheme("preferences-system"), "Preferences", this);
     QKeySequence seqPrefs = QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_P);
     QShortcut* sctPrefs = new QShortcut(seqPrefs, this);
     actPrefs->setShortcut(seqPrefs);
