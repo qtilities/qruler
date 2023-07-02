@@ -41,7 +41,7 @@ jobs:
       run: sudo apt-get update
     - name: Install Dependencies
       run: |
-        sudo apt-get install qtbase5-dev qttools5-dev
+        sudo apt-get install qtbase5-dev qttools5-dev lxqt-build-tools
     - name: Configure
       run: |
         cmake \
