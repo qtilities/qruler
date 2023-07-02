@@ -40,6 +40,7 @@ if (UNIX AND NOT APPLE)
         ${APPDATA_FILE_OUT}
     )
 endif()
+
 # TRANSLATION_DIR     "${CMAKE_CURRENT_SOURCE_DIR}/resources/translations"
 lxqt_translate_ts(QM_FILES
     UPDATE_TRANSLATIONS ${UPDATE_TRANSLATIONS}
@@ -56,7 +57,7 @@ lxqt_app_translation_loader(SOURCES ${PROJECT_NAME})
 
 # Other resources
 if (UNIX AND NOT APPLE)
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/${PROJECT_ID}.svgz"
+    install(FILES "resources/icons/${PROJECT_APPSTREAM_ID}.svg"
         DESTINATION "${CMAKE_INSTALL_FULL_DATADIR}/icons/hicolor/scalable/apps"
     )
     install(FILES "${DESKTOP_FILES}"
