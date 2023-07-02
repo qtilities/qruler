@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>@PROJECT_APPSTREAM_ID@</id>
+  <metadata_license>@PROJECT_APPSTREAM_SPDX_ID@</metadata_license>
+  <project_license>@PROJECT_SPDX_ID@</project_license>
+  <name>@PROJECT_NAME@</name>
+  <summary>@PROJECT_DESCRIPTION@</summary>
+  <content_rating type="oars-1.0" />
+
+  @PROJECT_DESCRIPTION_HTML@
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>The main window</caption>
+      <image>@PROJECT_REPOSITORY_URL@/blob/@PROJECT_REPOSITORY_BRANCH@/screenshot.png</image>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">@PROJECT_HOMEPAGE_URL@</url>
+
+  <provides>
+    <binary>@PROJECT_ID@</binary>
+  </provides>
+  
+  @PROJECT_RELEASES@
+  
+</component>
