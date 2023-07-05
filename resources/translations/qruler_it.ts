@@ -2,66 +2,114 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="it">
 <context>
+    <name>DialogAbout</name>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="27"/>
+        <source>Informations</source>
+        <translation>Informazioni</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="62"/>
+        <source>qrc:/about.html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="81"/>
+        <source>Thanks</source>
+        <translation>Ringraziamenti</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="119"/>
+        <source>qrc:/thanks.html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="138"/>
+        <source>License</source>
+        <translation>Licenza</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="176"/>
+        <source>qrc:/license.html</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DialogPrefs</name>
     <message>
+        <location filename="../../src/dialogprefs.ui" line="49"/>
         <source>General</source>
-        <translation>Generale</translation>
+        <translation>Generali</translation>
     </message>
     <message>
+        <location filename="../../src/dialogprefs.ui" line="64"/>
+        <source>Opacity:</source>
+        <translation>Opacità</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogprefs.ui" line="87"/>
         <source>Always on top</source>
-        <translation>Sempre in primo piano</translation>
+        <translation>Sempre al di sopra</translation>
     </message>
     <message>
+        <location filename="../../src/dialogprefs.ui" line="96"/>
         <source>Colors</source>
         <translation>Colori</translation>
     </message>
     <message>
+        <location filename="../../src/dialogprefs.ui" line="111"/>
         <source>Background</source>
         <translation>Sfondo</translation>
     </message>
     <message>
+        <location filename="../../src/dialogprefs.ui" line="145"/>
         <source>Border</source>
         <translation>Bordo</translation>
     </message>
     <message>
-        <source>Foreground</source>
+        <location filename="../../src/dialogprefs.ui" line="152"/>
+        <source>Text</source>
         <translation>Testo</translation>
-    </message>
-    <message>
-        <source>Opacity:</source>
-        <translation>Opacità:</translation>
     </message>
 </context>
 <context>
-    <name>azd::DialogPrefs</name>
+    <name>QRuler::DialogPrefs</name>
     <message>
+        <location filename="../../src/dialogprefs.cpp" line="51"/>
         <source>Preferences</source>
         <translation>Preferenze</translation>
     </message>
 </context>
 <context>
-    <name>azd::QRuler</name>
+    <name>QRuler::MainWindow</name>
     <message>
-        <source>Quit</source>
-        <translation>Esci</translation>
+        <location filename="../../src/mainwindow.cpp" line="51"/>
+        <source>&amp;Preferences</source>
+        <translation>&amp;Preferenze</translation>
     </message>
     <message>
-        <source>Error loading about file</source>
-        <translation>Errore cariacamento file di informazioni</translation>
+        <location filename="../../src/mainwindow.cpp" line="54"/>
+        <source>&amp;About</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>About</source>
-        <translation>Informazioni</translation>
+        <location filename="../../src/mainwindow.cpp" line="56"/>
+        <source>&amp;Quit</source>
+        <translation>&amp;Esci</translation>
     </message>
     <message>
+        <location filename="../../src/mainwindow.cpp" line="148"/>
         <source>Width:</source>
         <translation>Larghezza:</translation>
     </message>
     <message>
+        <location filename="../../src/mainwindow.cpp" line="148"/>
+        <location filename="../../src/mainwindow.cpp" line="149"/>
         <source>px</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../../src/mainwindow.cpp" line="149"/>
         <source>Height:</source>
         <translation>Altezza:</translation>
     </message>

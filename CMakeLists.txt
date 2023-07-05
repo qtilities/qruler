@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(
-    QRuler
+    qruler
     DESCRIPTION  "Simple ruler tool in Qt"
     HOMEPAGE_URL "http://qtilities.github.io/qruler"
     VERSION 0.1.1
@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR})
+option(UPDATE_TRANSLATIONS "Update source translations" OFF)
 
 # TODO: Qt6
 #find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
@@ -73,6 +74,26 @@ set(PROJECT_ALL_FILES
 source_group("Resource Files" FILES ${PROJECT_RESOURCES})
 source_group("Other Files" FILES ${PROJECT_MISC_FILES})
 source_group("UI Files" FILES ${PROJECT_UI_FILES})
+
+
+# Translations
+#===============================================================================
+include(LXQtTranslate)
+
+
+lxqt_translate_ts(QM_FILES
+    UPDATE_TRANSLATIONS ${UPDATE_TRANSLATIONS}
+    SOURCES ${PROJECT_RESOURCES}
+    TRANSLATION_DIR "resources/translations"
+    INSTALL_DIR ${CMAKE_INSTALL_DATADIR}/${CMAKE_PROJECT_NAME}/translations
+)
+
+lxqt_translate_desktop(DESKTOP_FILE
+    SOURCES ${DESKTOP_FILE_IN}
+    TRANSLATION_DIR "resources/translations"
+    USE_YAML
+)
+
 
 qt5_wrap_ui(PROJECT_UI_SOURCE ${PROJECT_UI_FILES})
 set_property(SOURCE ${PROJECT_UI_SOURCE} PROPERTY SKIP_AUTOMOC ON)
