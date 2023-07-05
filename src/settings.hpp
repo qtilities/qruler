@@ -22,9 +22,10 @@
 #include <QPoint>
 #include <QSize>
 
-namespace azd {
+namespace QRuler {
 
-class Settings {
+class Settings
+{
 
 public:
     Settings();
@@ -33,22 +34,22 @@ public:
     void save();
 
     QColor backgroundColor() const { return bgColor_; }
-    void setBackgroundColor(const QColor& bgColor) { bgColor_ = bgColor; }
+    void setBackgroundColor(const QColor &bgColor) { bgColor_ = bgColor; }
 
     QColor borderColor() const { return bdColor_; }
-    void setBorderColor(const QColor& bdColor) { bdColor_ = bdColor; }
+    void setBorderColor(const QColor &bdColor) { bdColor_ = bdColor; }
 
     QColor foregroundColor() const { return fgColor_; }
-    void setForegroundColor(const QColor& fgColor) { fgColor_ = fgColor; }
+    void setForegroundColor(const QColor &fgColor) { fgColor_ = fgColor; }
 
     QString opacity() const { return opacity_; }
     void setOpacity(QString opacity) { opacity_ = opacity; }
 
     QPoint position() const { return position_; }
-    void setPosition(const QPoint& position) { position_ = position; }
+    void setPosition(const QPoint &position) { position_ = position; }
 
     QSize size() const { return size_; }
-    void setSize(const QSize& size) { size_ = size; }
+    void setSize(const QSize &size) { size_ = size; }
 
     bool alwaysOnTop() const { return alwaysOnTop_; }
     void setAlwaysOnTop(bool alwaysOnTop) { alwaysOnTop_ = alwaysOnTop; }
@@ -62,4 +63,4 @@ private:
     QPoint position_;
     QSize size_;
 };
-} // namespace azd
+} // namespace QRuler

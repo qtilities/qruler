@@ -19,20 +19,18 @@
 
 #include <QDialog>
 
-#include <functional>
+class QLabel;
 
 namespace Ui {
 class DialogPrefs;
 }
-class QLabel;
-
-namespace azd {
-
-class DialogPrefs : public QDialog {
+namespace QRuler {
+class DialogPrefs : public QDialog
+{
     Q_OBJECT
 
 public:
-    explicit DialogPrefs(QWidget* parent = nullptr);
+    explicit DialogPrefs(QWidget *parent = nullptr);
     ~DialogPrefs();
 
     void loadSettings();
@@ -40,10 +38,8 @@ public:
 private:
     void accept() override;
 
-    void setColorBackground();
-    void setColorBorder();
-    void setColorForeground();
+    void setColorForLabel(QLabel *label);
 
-    Ui::DialogPrefs* ui;
+    Ui::DialogPrefs *ui;
 };
-} // namespace azd
+} // namespace QRuler

@@ -6,18 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>240</height>
+    <width>384</width>
+    <height>256</height>
    </rect>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>120</x>
+     <x>10</x>
      <y>200</y>
-     <width>191</width>
-     <height>32</height>
+     <width>360</width>
+     <height>48</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -31,8 +37,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>301</width>
-     <height>181</height>
+     <width>360</width>
+     <height>192</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -47,8 +53,8 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>281</width>
-       <height>131</height>
+       <width>341</width>
+       <height>141</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="layGeneral">
@@ -56,13 +62,6 @@
        <widget class="QLabel" name="lblOpacity">
         <property name="text">
          <string>Opacity:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="chkAlwaysOnTop">
-        <property name="text">
-         <string>Always on top</string>
         </property>
        </widget>
       </item>
@@ -82,6 +81,13 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="chkAlwaysOnTop">
+        <property name="text">
+         <string>Always on top</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </widget>
@@ -94,8 +100,8 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>281</width>
-       <height>131</height>
+       <width>341</width>
+       <height>141</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="layColors">
@@ -143,7 +149,7 @@
       <item row="2" column="0">
        <widget class="QPushButton" name="pbnFg">
         <property name="text">
-         <string>Foreground</string>
+         <string>Text</string>
         </property>
        </widget>
       </item>
@@ -153,38 +159,5 @@
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>DialogPrefs</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>DialogPrefs</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

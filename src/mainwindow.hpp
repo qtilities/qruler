@@ -22,27 +22,27 @@
 
 class QMenu;
 
-namespace azd {
-
-class QRuler : public QWidget {
+namespace QRuler {
+class MainWindow : public QWidget
+{
     Q_OBJECT
 
 public:
-    explicit QRuler(QWidget* parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
 
     void loadSettings();
     void saveSettings();
 
 protected:
-    void mousePressEvent(QMouseEvent*) override;
-    void mouseMoveEvent(QMouseEvent*) override;
-    void paintEvent(QPaintEvent*) override;
+    void mousePressEvent(QMouseEvent *) override;
+    void mouseMoveEvent(QMouseEvent *) override;
+    void paintEvent(QPaintEvent *) override;
 
 private:
     QSize minimumSizeHint() const override;
     QSize sizeHint() const override;
 
-    void onAboutClicked();
+    void about();
 
     void drawXLine();
     void drawYLine();
@@ -50,6 +50,6 @@ private:
     bool changeWidth;
     bool changeHeight;
     QPoint dragPosition;
-    QMenu* mnuContext_;
+    QMenu *mnuContext_;
 };
-} // namespace azd
+} // namespace QRuler

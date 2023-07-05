@@ -1,4 +1,5 @@
-/*build*/
-*.user*
+/*build*
 *.json
 *.qm
+*.user*
+resources/about.html

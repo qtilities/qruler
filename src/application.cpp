@@ -16,52 +16,67 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "application.hpp"
-#include "qruler.hpp"
+#include "mainwindow.hpp"
 #include "dialogprefs.hpp"
 
+#include <QLibraryInfo>
+#include <QLocale>
 #include <QTranslator>
 
-azd::Application::Application(int& argc, char** argv)
+QRuler::Application::Application(int &argc, char **argv)
     : QApplication(argc, argv)
 {
-    setOrganizationName("AZDrums");
-    setOrganizationDomain("azdrums.org");
-    setApplicationName("QRuler");
+    setApplicationName(APPLICATION_NAME);
+    setOrganizationName(ORGANIZATION_NAME);
+    setOrganizationDomain(ORGANIZATION_DOMAIN);
 
+#if QT_VERSION < 0x060000
+    setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+#endif
     settings_.load();
-    window_ = new QRuler;
-    dlgPrefs_ = new DialogPrefs(window_);
+    mainWindow_ = new MainWindow;
+    dlgPrefs_ = new DialogPrefs(mainWindow_);
 
-    connect(this, &QApplication::aboutToQuit, this,
-            [this]() { window_->saveSettings(); settings_.save(); });
-
-    connect(dlgPrefs_, &QDialog::accepted, window_, &QRuler::loadSettings);
+    connect(dlgPrefs_, &QDialog::accepted, mainWindow_,
+            &MainWindow::loadSettings);
 
     connect(this, &QApplication::aboutToQuit, dlgPrefs_, &QObject::deleteLater);
-    connect(this, &QApplication::aboutToQuit, window_, &QObject::deleteLater);
+    connect(this, &QApplication::aboutToQuit, mainWindow_,
+            &QObject::deleteLater);
+    connect(this, &QApplication::aboutToQuit, this, [this]() {
+        mainWindow_->saveSettings();
+        settings_.save();
+    });
+    // no need to call mainWindow_->show() because MainWindow::loadSettings()
+    // does it when setting its flags and it is called in its constructor
 }
 
-void azd::Application::preferences()
+void QRuler::Application::preferences()
 {
+    dlgPrefs_->loadSettings();
     dlgPrefs_->show();
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    using namespace azd;
-    Application app(argc, argv);
+    using namespace QRuler;
 
-    QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString& locale : uiLanguages) {
-        const QString baseName = "qruler_" + QLocale(locale).name();
-        if (translator.load(":/translations/" + baseName)) {
-            app.installTranslator(&translator);
-            break;
-        }
-    }
-    app.window()->move(app.settings().position());
-    app.window()->resize(app.settings().size());
-    app.window()->show();
+    Application app(argc, argv);
+    QTranslator qtTranslator, translator;
+    QString filename = QStringLiteral("qt_") + QLocale::system().name();
+#if QT_VERSION < 0x060000
+    QString dir = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+#else
+    QString dir = QLibraryInfo::path(QLibraryInfo::TranslationsPath);
+#endif
+    if (qtTranslator.load(filename, dir))
+        app.installTranslator(&qtTranslator);
+
+    filename = QStringLiteral(PROJECT_ID) + '_' + QLocale::system().name();
+    dir = QStringLiteral(PROJECT_DATA_DIR) + QStringLiteral("/translations");
+
+    if (translator.load(filename, dir))
+        app.installTranslator(&translator);
+
     return app.exec();
 }

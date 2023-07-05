@@ -3,7 +3,7 @@
 [![ci]](https://github.com/redtide/qruler/actions/workflows/build.yml)
 [![packages]](https://repology.org/project/qruler/versions)
 
-A simple on-screen pixel meter.
+A simple on-screen pixel meter, based on [IRuler] (SPDX ID: GPL-2.0-or-later).
 
 ![Screenshot](screenshot.png)
 
@@ -35,6 +35,7 @@ DESTDIR="$(pwd)/buildpackage" cmake --build build --target install
 [packages]:        https://repology.org/badge/latest-versions/qruler.svg?header=packages
 [CC0-1.0]:         https://creativecommons.org/publicdomain/zero/1.0/
 [GPLv3]:           LICENSE
+[IRuler]:          https://github.com/jjzhang166/IRuler/
 [LGPLv3]:          resources/icons/COPYING
 [openclipart]:     https://openclipart.org/
 [Oxygen icon set]: https://github.com/KDE/oxygen-icons/

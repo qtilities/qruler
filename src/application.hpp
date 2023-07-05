@@ -21,23 +21,21 @@
 
 #include <QApplication>
 
-namespace azd {
-
-class QRuler;
+namespace QRuler {
+class MainWindow;
 class DialogPrefs;
-
-class Application : public QApplication {
+class Application : public QApplication
+{
     Q_OBJECT
 
 public:
-    Application(int& argc, char** argv);
-    Settings& settings() { return settings_; }
-    QRuler* window() { return window_; }
+    Application(int &argc, char **argv);
+    Settings &settings() { return settings_; }
     void preferences();
 
 private:
-    QRuler* window_;
-    DialogPrefs* dlgPrefs_;
+    MainWindow *mainWindow_;
+    DialogPrefs *dlgPrefs_;
     Settings settings_;
 };
-} // namespace azd
+} // namespace QRuler

@@ -16,93 +16,91 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-#include "qruler.hpp"
+#include "mainwindow.hpp"
 #include "application.hpp"
-#include "dialogprefs.hpp"
+#include "dialogabout.hpp"
 
 #include <QCoreApplication>
 #include <QDebug>
-#include <QMouseEvent>
-#include <QPen>
 #include <QFont>
-#include <QPainter>
 #include <QMenu>
-#include <QDesktopServices>
-#include <QMessageBox>
-#include <QShortcut>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPen>
 #include <QTextStream>
 
-azd::QRuler::QRuler(QWidget* parent)
+namespace Default {
+static const QSize minimumSize = QSize(120, 100);
+static const QString fontFamily = QStringLiteral("monospace");
+static const int measureFontSize = 10;
+static const int fontSize = 7;
+} // namespace Default
+
+QRuler::MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
     , mnuContext_(new QMenu(this))
 {
-    QIcon iconQuit = QIcon::fromTheme("application-exit", QIcon(":/application-exit"));
-    QAction* actQuit = new QAction(iconQuit, tr("Quit"), this);
-    QKeySequence seqQuit = QKeySequence(Qt::CTRL + Qt::Key_Q);
-    QShortcut* sctQuit = new QShortcut(seqQuit, this);
-    actQuit->setShortcut(seqQuit);
-    connect(actQuit, &QAction::triggered, QCoreApplication::instance(), &QCoreApplication::quit);
-    connect(sctQuit, &QShortcut::activated, QCoreApplication::instance(), &QCoreApplication::quit);
-
     QIcon iconAbout = QIcon::fromTheme("help-about", QIcon(":/help-about"));
-    QAction* actAbout = new QAction(iconAbout, "About", this);
-    connect(actAbout, &QAction::triggered, this, &QRuler::onAboutClicked);
+    QIcon iconPrefs
+        = QIcon::fromTheme("preferences-system", QIcon(":/preferences-system"));
+    QIcon iconQuit
+        = QIcon::fromTheme("application-exit", QIcon(":/application-exit"));
 
-    Application* theApp = static_cast<Application*>(qApp);
+    Application *theApp = static_cast<Application *>(qApp);
 
-    QIcon iconPrefs = QIcon::fromTheme("preferences-system", QIcon(":/preferences-system"));
-    QAction* actPrefs = new QAction(iconPrefs, "Preferences", this);
-    QKeySequence seqPrefs = QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_P);
-    QShortcut* sctPrefs = new QShortcut(seqPrefs, this);
-    actPrefs->setShortcut(seqPrefs);
-    connect(actPrefs, &QAction::triggered, theApp, &Application::preferences);
-    connect(sctPrefs, &QShortcut::activated, theApp, &Application::preferences);
+    QAction *actPrefs = mnuContext_->addAction(tr("&Preferences"), theApp,
+                                               &Application::preferences);
+    QAction *actAbout
+        = mnuContext_->addAction(tr("&About"), this, &MainWindow::about);
+    QAction *actQuit
+        = mnuContext_->addAction(tr("&Quit"), qApp, &QCoreApplication::quit);
+
+    actPrefs->setShortcuts(QKeySequence::Preferences);
+    actQuit->setShortcuts(QKeySequence::Quit);
+
+    actAbout->setIcon(iconAbout);
+    actPrefs->setIcon(iconPrefs);
+    actQuit->setIcon(iconQuit);
 
     mnuContext_->addAction(actAbout);
     mnuContext_->addAction(actPrefs);
     mnuContext_->addSeparator();
     mnuContext_->addAction(actQuit);
 
+    setWindowIcon(QIcon(":/appicon"));
     setMouseTracking(true);
-    setWindowTitle(QCoreApplication::applicationName());
-    setWindowIcon(QIcon(":appicon"));
-
     loadSettings();
 }
 
-void azd::QRuler::loadSettings()
+void QRuler::MainWindow::loadSettings()
 {
-    Settings& settings = static_cast<Application*>(qApp)->settings();
-    setAttribute(Qt::WA_TranslucentBackground);
+    Settings &settings = static_cast<Application *>(qApp)->settings();
     qreal opacity = settings.opacity().toDouble();
-    setWindowOpacity(opacity);
-
     Qt::WindowFlags flags = Qt::FramelessWindowHint;
+
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowOpacity(opacity);
     if (settings.alwaysOnTop())
         flags |= Qt::WindowStaysOnTopHint;
 
     setWindowFlags(flags);
-    show();
+    resize(settings.size());
+    move(settings.position());
+    show(); // update the flags
 }
 
-void azd::QRuler::saveSettings()
+void QRuler::MainWindow::saveSettings()
 {
-    Settings& settings = static_cast<Application*>(qApp)->settings();
+    Settings &settings = static_cast<Application *>(qApp)->settings();
     settings.setPosition(pos());
     settings.setSize(size());
 }
 
-QSize azd::QRuler::minimumSizeHint() const
-{
-    return sizeHint();
-}
+QSize QRuler::MainWindow::minimumSizeHint() const { return sizeHint(); }
 
-QSize azd::QRuler::sizeHint() const
-{
-    return QSize(120, 100);
-}
+QSize QRuler::MainWindow::sizeHint() const { return Default::minimumSize; }
 
-void azd::QRuler::mousePressEvent(QMouseEvent* event)
+void QRuler::MainWindow::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
         changeWidth = event->x() > this->width() - 5;
@@ -114,7 +112,7 @@ void azd::QRuler::mousePressEvent(QMouseEvent* event)
     }
 }
 
-void azd::QRuler::mouseMoveEvent(QMouseEvent* event)
+void QRuler::MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->x() > this->width() - 5) {
         this->setCursor(Qt::SizeHorCursor);
@@ -141,14 +139,14 @@ void azd::QRuler::mouseMoveEvent(QMouseEvent* event)
     }
 }
 
-void azd::QRuler::paintEvent(QPaintEvent*)
+void QRuler::MainWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    Settings& settings = static_cast<Application*>(qApp)->settings();
+    Settings &settings = static_cast<Application *>(qApp)->settings();
     int width = this->width();
     int height = this->height();
     QString showText = tr("Width:") + QString::number(width) + tr("px") + "\n"
-        + tr("Height:") + QString::number(height) + "px";
+                       + tr("Height:") + QString::number(height) + tr("px");
 
     painter.fillRect(rect(), settings.backgroundColor());
 
@@ -159,11 +157,11 @@ void azd::QRuler::paintEvent(QPaintEvent*)
     painter2.setPen(QPen(settings.borderColor(), 1));
     painter2.drawRect(0, 0, width - 1, height - 1);
     painter2.setPen(QPen(settings.foregroundColor(), 1));
-    painter2.setFont(QFont("monospace", 10));
+    painter2.setFont(QFont(Default::fontFamily, Default::measureFontSize));
     painter2.drawText(rect(), Qt::AlignCenter, showText);
 }
 
-void azd::QRuler::drawXLine()
+void QRuler::MainWindow::drawXLine()
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, false);
@@ -178,14 +176,15 @@ void azd::QRuler::drawXLine()
         }
         if (i % 50 == 0 && i > 0) {
             lineHeight = 15;
-            painter.setFont(QFont("monospace", 7, QFont::Bold));
+            painter.setFont(
+                QFont(Default::fontFamily, Default::fontSize, QFont::Bold));
             painter.drawText(i, 20, 25, 10, Qt::AlignLeft, QString::number(i));
         }
         painter.drawLine(QPoint(i, 0), QPoint(i, lineHeight));
     }
 }
 
-void azd::QRuler::drawYLine()
+void QRuler::MainWindow::drawYLine()
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, false);
@@ -200,22 +199,33 @@ void azd::QRuler::drawYLine()
         }
         if (i % 50 == 0 && i > 0) {
             lineHeight = 15;
-            painter.setFont(QFont("monospace", 7, QFont::Bold));
+            painter.setFont(
+                QFont(Default::fontFamily, Default::fontSize, QFont::Bold));
             painter.drawText(20, i, 25, 10, Qt::AlignLeft, QString::number(i));
         }
         painter.drawLine(QPoint(0, i), QPoint(lineHeight, i));
     }
 }
 
-void azd::QRuler::onAboutClicked()
+void QRuler::MainWindow::about()
 {
-    QFile f(":/about.html");
-    if (!f.open(QFile::ReadOnly | QFile::Text)) {
-        qDebug() << tr("Error loading about file") << '\n';
-        return;
+    QStringList list = {":/info", ":/authors", ":/license"};
+    QStringList texts;
+
+    for (const QString &item : list) {
+        QFile f(item);
+        if (!f.open(QFile::ReadOnly | QFile::Text)) {
+            qDebug() << "Error loading about file" << '\n';
+            return;
+        }
+        QTextStream in(&f);
+        texts.append(in.readAll());
+        f.close();
     }
-    QTextStream in(&f);
-    QString text = in.readAll();
-    f.close();
-    QMessageBox::about(this, tr("About"), text);
+
+    DialogAbout about;
+    about.setInfoText(texts.at(0));
+    about.setAuthorsText(texts.at(1));
+    about.setLicenseText(texts.at(2));
+    about.exec();
 }

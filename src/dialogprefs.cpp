@@ -23,7 +23,7 @@
 #include <QColorDialog>
 #include <QPushButton>
 
-azd::DialogPrefs::DialogPrefs(QWidget* parent)
+QRuler::DialogPrefs::DialogPrefs(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::DialogPrefs)
 {
@@ -35,23 +35,28 @@ azd::DialogPrefs::DialogPrefs(QWidget* parent)
 
     loadSettings();
 
-    connect(ui->pbnBg, &QAbstractButton::clicked, this, &DialogPrefs::setColorBackground);
-    connect(ui->pbnBd, &QAbstractButton::clicked, this, &DialogPrefs::setColorBorder);
-    connect(ui->pbnFg, &QAbstractButton::clicked, this, &DialogPrefs::setColorForeground);
-    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &DialogPrefs::accept);
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this,
+            &DialogPrefs::accept);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this,
+            &DialogPrefs::reject);
 
+    connect(ui->pbnBg, &QAbstractButton::clicked, this,
+            [this]() { setColorForLabel(ui->lblColorBg); });
+    connect(ui->pbnBd, &QAbstractButton::clicked, this,
+            [this]() { setColorForLabel(ui->lblColorBd); });
+    connect(ui->pbnFg, &QAbstractButton::clicked, this,
+            [this]() { setColorForLabel(ui->lblColorFg); });
+
+    setWindowIcon(QIcon(":/appicon"));
     setWindowTitle(tr("Preferences"));
-    setFixedSize(320, 240);
+    setFixedSize(384, 256);
 }
 
-azd::DialogPrefs::~DialogPrefs()
-{
-    delete ui;
-}
+QRuler::DialogPrefs::~DialogPrefs() { delete ui; }
 
-void azd::DialogPrefs::loadSettings()
+void QRuler::DialogPrefs::loadSettings()
 {
-    Settings& settings = static_cast<Application*>(qApp)->settings();
+    Settings &settings = static_cast<Application *>(qApp)->settings();
 
     ui->chkAlwaysOnTop->setChecked(settings.alwaysOnTop());
     ui->sbxOpacity->setValue(settings.opacity().toDouble());
@@ -69,50 +74,28 @@ void azd::DialogPrefs::loadSettings()
     ui->lblColorFg->setText(fgColor.name());
 }
 
-void azd::DialogPrefs::accept()
+void QRuler::DialogPrefs::accept()
 {
-    Settings& settings = static_cast<Application*>(qApp)->settings();
+    Settings &settings = static_cast<Application *>(qApp)->settings();
 
     settings.setAlwaysOnTop(ui->chkAlwaysOnTop->isChecked());
     settings.setOpacity(QString::number(ui->sbxOpacity->value(), 'g', 2));
-    settings.setBackgroundColor(ui->lblColorBg->palette().color(QPalette::Window));
+    settings.setBackgroundColor(
+        ui->lblColorBg->palette().color(QPalette::Window));
     settings.setBorderColor(ui->lblColorBd->palette().color(QPalette::Window));
-    settings.setForegroundColor(ui->lblColorFg->palette().color(QPalette::Window));
+    settings.setForegroundColor(
+        ui->lblColorFg->palette().color(QPalette::Window));
 
     QDialog::accept();
 
     hide();
 }
 
-void azd::DialogPrefs::setColorBackground()
+void QRuler::DialogPrefs::setColorForLabel(QLabel *label)
 {
-    const QColor color = QColorDialog::getColor();
+    const QColor color = QColorDialog::getColor(Qt::white, this);
     if (color.isValid()) {
-        ui->lblColorBg->setText(color.name());
-        ui->lblColorBg->setPalette(QPalette(color));
-        ui->lblColorBg->setAutoFillBackground(true);
-    }
-}
-
-void azd::DialogPrefs::setColorBorder()
-{
-    Settings& settings = static_cast<Application*>(qApp)->settings();
-    const QColor color = QColorDialog::getColor();
-    if (color.isValid()) {
-        ui->lblColorBd->setText(color.name());
-        ui->lblColorBd->setPalette(QPalette(color));
-        ui->lblColorBd->setAutoFillBackground(true);
-        settings.setBorderColor(color);
-    }
-}
-
-void azd::DialogPrefs::setColorForeground()
-{
-    Settings& settings = static_cast<Application*>(qApp)->settings();
-    const QColor color = QColorDialog::getColor();
-    if (color.isValid()) {
-        ui->lblColorFg->setText(color.name());
-        ui->lblColorFg->setPalette(QPalette(color));
-        settings.setForegroundColor(color);
+        label->setText(color.name());
+        label->setPalette(QPalette(color));
     }
 }

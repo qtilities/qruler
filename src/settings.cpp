@@ -30,7 +30,7 @@ static const QPoint position = QPoint(200, 200);
 static const QSize size = QSize(240, 120);
 } // namespace Default
 
-azd::Settings::Settings()
+QRuler::Settings::Settings()
     : alwaysOnTop_(Default::alwaysOnTop)
     , opacity_(Default::opacity)
     , bgColor_(Default::backgroundColor)
@@ -41,7 +41,7 @@ azd::Settings::Settings()
 {
 }
 
-void azd::Settings::load()
+void QRuler::Settings::load()
 {
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
                        QApplication::organizationName(),
@@ -58,7 +58,7 @@ void azd::Settings::load()
     settings.endGroup();
 }
 
-void azd::Settings::save()
+void QRuler::Settings::save()
 {
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
                        QApplication::organizationName(),
