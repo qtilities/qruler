@@ -2,4 +2,4 @@
 *.json
 *.qm
 *.user*
-resources/about.html
+resources/about.md
