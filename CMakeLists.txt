@@ -37,6 +37,7 @@ set(PROJECT_SOURCES
 )
 set(PROJECT_RESOURCES
     resources/resources.qrc
+    resources/in/about.info.md.in
 )
 set(PROJECT_OTHER_FILES
     .github/workflows/build.yml
