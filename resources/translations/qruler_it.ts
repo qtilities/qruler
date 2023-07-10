@@ -4,9 +4,14 @@
 <context>
     <name>QRuler::DialogAbout</name>
     <message>
-        <location filename="../../src/dialogabout.cpp" line="30"/>
+        <location filename="../../src/dialogabout.cpp" line="46"/>
         <source>About</source>
         <translation>Informazioni</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.cpp" line="54"/>
+        <source>Author</source>
+        <translation>Autore</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="27"/>
@@ -42,7 +47,7 @@
 <context>
     <name>QRuler::DialogPrefs</name>
     <message>
-        <location filename="../../src/dialogprefs.cpp" line="53"/>
+        <location filename="../../src/dialogprefs.cpp" line="52"/>
         <source>Preferences</source>
         <translation>Preferenze</translation>
     </message>
@@ -85,33 +90,33 @@
 <context>
     <name>QRuler::MainWindow</name>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="53"/>
+        <location filename="../../src/mainwindow.cpp" line="52"/>
         <source>&amp;About</source>
         <translation>&amp;Informazioni</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="54"/>
+        <location filename="../../src/mainwindow.cpp" line="53"/>
         <source>&amp;Preferences</source>
         <translation>&amp;Preferenze</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="58"/>
+        <location filename="../../src/mainwindow.cpp" line="57"/>
         <source>&amp;Quit</source>
         <translation>&amp;Esci</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="138"/>
+        <location filename="../../src/mainwindow.cpp" line="137"/>
         <source>Width:</source>
         <translation>Larghezza:</translation>
     </message>
     <message>
+        <location filename="../../src/mainwindow.cpp" line="137"/>
         <location filename="../../src/mainwindow.cpp" line="138"/>
-        <location filename="../../src/mainwindow.cpp" line="139"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="139"/>
+        <location filename="../../src/mainwindow.cpp" line="138"/>
         <source>Height:</source>
         <translation>Altezza:</translation>
     </message>
