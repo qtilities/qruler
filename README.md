@@ -5,7 +5,7 @@
 
 A simple on-screen pixel meter, based on [IRuler] (SPDX ID: GPL-2.0-or-later).
 
-![Screenshot](screenshot.png)
+![Screenshot](resources/screenshot.png)
 
 ## Dependencies
 
@@ -21,7 +21,7 @@ Under Debian based systems:
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
 cmake --build build
-DESTDIR="$(pwd)/buildpackage" cmake --build build --target install
+DESTDIR="$(pwd)/package" cmake --build build --target install
 ```
 
 ## Licenses
