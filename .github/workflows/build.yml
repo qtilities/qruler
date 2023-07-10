@@ -41,13 +41,21 @@ jobs:
       run: sudo apt-get update
     - name: Install Dependencies
       run: |
-        sudo apt-get install qtbase5-dev qttools5-dev lxqt-build-tools
+        packages=(
+            qtbase5-dev
+            qttools5-dev
+            lxqt-build-tools
+        )
+        sudo apt-get install ${packages[@]}
     - name: Configure
       run: |
-        cmake \
-          -DCMAKE_INSTALL_PREFIX="/usr" \
-          -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
+        options=(
+          -D CMAKE_INSTALL_PREFIX="/usr"
+          -D CMAKE_BUILD_TYPE="$BUILD_TYPE"
           -B ${{ runner.workspace }}/build
+        )
+        cmake ${options[@]}
+
     - name: Build
       run: cmake --build ${{ runner.workspace }}/build --config "$BUILD_TYPE"
     - name: Install
