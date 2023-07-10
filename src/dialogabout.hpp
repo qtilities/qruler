@@ -2,10 +2,10 @@
 
 #include <QDialog>
 
+namespace QRuler {
 namespace Ui {
 class DialogAbout;
 }
-namespace QRuler {
 class DialogAbout : public QDialog
 {
     Q_OBJECT

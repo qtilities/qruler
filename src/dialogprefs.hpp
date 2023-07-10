@@ -21,10 +21,10 @@
 
 class QLabel;
 
+namespace QRuler {
 namespace Ui {
 class DialogPrefs;
 }
-namespace QRuler {
 class DialogPrefs : public QDialog
 {
     Q_OBJECT

@@ -7,7 +7,7 @@
 
 QRuler::DialogAbout::DialogAbout(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::DialogAbout)
+    , ui(new QRuler::Ui::DialogAbout)
 {
     ui->setupUi(this);
     ui->tabInfo->setLayout(ui->layTabInfo);
@@ -15,7 +15,8 @@ QRuler::DialogAbout::DialogAbout(QWidget *parent)
     ui->tabLicense->setLayout(ui->layTabLicense);
 
     // TODO: Probably needed only on X11
-    Settings &settings = static_cast<Application *>(qApp)->settings();
+    Application *theApp = static_cast<Application *>(qApp);
+    Settings &settings = theApp->settings();
     if (settings.alwaysOnTop()) {
         Qt::WindowFlags flags = windowFlags();
         flags |= Qt::WindowStaysOnTopHint;
@@ -24,6 +25,9 @@ QRuler::DialogAbout::DialogAbout(QWidget *parent)
 
     connect(ui->buttonBox, &QDialogButtonBox::clicked, this,
             &QRuler::DialogAbout::close);
+
+    setWindowIcon(theApp->icon());
+    setWindowTitle(tr("About"));
 }
 
 QRuler::DialogAbout::~DialogAbout() { delete ui; }

@@ -25,7 +25,7 @@
 
 QRuler::DialogPrefs::DialogPrefs(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::DialogPrefs)
+    , ui(new QRuler::Ui::DialogPrefs)
 {
     ui->setupUi(this);
 
@@ -47,9 +47,10 @@ QRuler::DialogPrefs::DialogPrefs(QWidget *parent)
     connect(ui->pbnFg, &QAbstractButton::clicked, this,
             [this]() { setColorForLabel(ui->lblColorFg); });
 
-    setWindowIcon(QIcon(":/appicon"));
+    Application *theApp = static_cast<Application *>(qApp);
+
+    setWindowIcon(theApp->icon());
     setWindowTitle(tr("Preferences"));
-    setFixedSize(384, 256);
 }
 
 QRuler::DialogPrefs::~DialogPrefs() { delete ui; }

@@ -37,7 +37,7 @@ if (UNIX AND NOT APPLE)
     set(PROJECT_ICON_FILE_NAME "${PROJECT_APPSTREAM_ID}.${PROJECT_ICON_FORMAT}")
     set(PROJECT_ICON_FILE_PATH "${CMAKE_INSTALL_FULL_DATADIR}/icons/hicolor/scalable/apps")
     configure_file("resources/icons/application.icon.${PROJECT_ICON_FORMAT}"
-        "${CMAKE_BINARY_DIR}/${PROJECT_ICON_FILE_NAME}" COPYONLY @ONLY
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_ICON_FILE_NAME}" COPYONLY
     )
     #===========================================================================
     # Translations
@@ -66,13 +66,13 @@ if (UNIX AND NOT APPLE)
 #===============================================================================
 # Install
 #===============================================================================
-    install(FILES "${PROJECT_APPDATA_FILE_NAME}"
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_APPDATA_FILE_NAME}"
         DESTINATION "${CMAKE_INSTALL_DATADIR}/metainfo"
     )
     install(FILES "${PROJECT_DESKTOP_FILES}"
         DESTINATION "${CMAKE_INSTALL_DATADIR}/applications"
     )
 endif()
-install(FILES "${PROJECT_ICON_FILE_NAME}"
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_ICON_FILE_NAME}"
     DESTINATION "${PROJECT_ICON_FILE_PATH}"
 )

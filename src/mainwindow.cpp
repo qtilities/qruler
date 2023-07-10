@@ -23,6 +23,8 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QFont>
+#include <QIcon>
+#include <QKeySequence>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
@@ -48,26 +50,15 @@ QRuler::MainWindow::MainWindow(QWidget *parent)
 
     Application *theApp = static_cast<Application *>(qApp);
 
-    QAction *actPrefs = mnuContext_->addAction(tr("&Preferences"), theApp,
-                                               &Application::preferences);
-    QAction *actAbout
-        = mnuContext_->addAction(tr("&About"), this, &MainWindow::about);
-    QAction *actQuit
-        = mnuContext_->addAction(tr("&Quit"), qApp, &QCoreApplication::quit);
-
-    actPrefs->setShortcuts(QKeySequence::Preferences);
-    actQuit->setShortcuts(QKeySequence::Quit);
-
-    actAbout->setIcon(iconAbout);
-    actPrefs->setIcon(iconPrefs);
-    actQuit->setIcon(iconQuit);
-
-    mnuContext_->addAction(actAbout);
-    mnuContext_->addAction(actPrefs);
+    mnuContext_->addAction(iconAbout, tr("&About"), this, &MainWindow::about);
+    mnuContext_->addAction(iconPrefs, tr("&Preferences"), theApp,
+                           &Application::preferences,
+                           QKeySequence::Preferences);
     mnuContext_->addSeparator();
-    mnuContext_->addAction(actQuit);
+    mnuContext_->addAction(iconQuit, tr("&Quit"), &QCoreApplication::quit,
+                           QKeySequence::Quit);
 
-    setWindowIcon(QIcon(":/appicon"));
+    setWindowIcon(theApp->icon());
     setMouseTracking(true);
     loadSettings();
 }
@@ -80,12 +71,11 @@ void QRuler::MainWindow::loadSettings()
 
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowOpacity(opacity);
+
     if (settings.alwaysOnTop())
         flags |= Qt::WindowStaysOnTopHint;
 
     setWindowFlags(flags);
-    resize(settings.size());
-    move(settings.position());
     show(); // update the flags
 }
 

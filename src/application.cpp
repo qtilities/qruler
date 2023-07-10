@@ -21,21 +21,81 @@
 
 #include <QLibraryInfo>
 #include <QLocale>
-#include <QTranslator>
 
-QRuler::Application::Application(int &argc, char **argv)
+QRuler::Application::Application(int argc, char *argv[])
     : QApplication(argc, argv)
 {
     setApplicationName(APPLICATION_NAME);
     setOrganizationName(ORGANIZATION_NAME);
     setOrganizationDomain(ORGANIZATION_DOMAIN);
 
+    initLocale();
+
+    QString icoCurPath = QCoreApplication::applicationDirPath() + '/'
+                         + QStringLiteral(PROJECT_ICON_NAME);
+    QString icoSysPath = QStringLiteral(PROJECT_ICON_SYSTEM_PATH);
+
+    // Try first to find the app icon in the current directory
+    appIcon_ = QIcon(icoCurPath);
+    if (appIcon_.isNull())
+        appIcon_ = QIcon(icoSysPath);
+
+        // UseHighDpiPixmaps is default from Qt6
 #if QT_VERSION < 0x060000
     setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 #endif
+    initUi();
+}
+
+void QRuler::Application::initLocale()
+{
+#if 1
+    QLocale locale = QLocale::system();
+#else
+    QLocale locale(QLocale("it_IT"));
+    QLocale::setDefault(locale);
+#endif
+    // Qt translations (buttons and the like)
+    QString translationsPath
+#if QT_VERSION < 0x060000
+        = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+#else
+        = QLibraryInfo::path(QLibraryInfo::TranslationsPath);
+#endif
+    QString translationsFileName = QStringLiteral("qt_") + locale.name();
+
+    if (qtTranslator_.load(translationsFileName, translationsPath))
+        installTranslator(&qtTranslator_);
+
+    // E.g. "<appname>_en"
+    translationsFileName
+        = QCoreApplication::applicationName().toLower() + '_' + locale.name();
+
+    // Try first in the same binary directory, in case we are building,
+    // otherwise read from system data
+    translationsPath = QCoreApplication::applicationDirPath();
+
+    bool isLoaded = translator_.load(translationsFileName, translationsPath);
+    if (!isLoaded) {
+        // "/usr/share/<appname>/translations
+        isLoaded = translator_.load(translationsFileName,
+                                    QStringLiteral(PROJECT_DATA_DIR)
+                                        + QStringLiteral("/translations"));
+    }
+    if (isLoaded)
+        installTranslator(&translator_);
+}
+
+void QRuler::Application::initUi()
+{
     settings_.load();
-    mainWindow_ = new MainWindow;
-    dlgPrefs_ = new DialogPrefs(mainWindow_);
+
+    mainWindow_ = new QRuler::MainWindow;
+    dlgPrefs_ = new QRuler::DialogPrefs(mainWindow_);
+
+    mainWindow_->move(settings_.position());
+    mainWindow_->resize(settings_.size());
+    mainWindow_->show();
 
     connect(dlgPrefs_, &QDialog::accepted, mainWindow_,
             &MainWindow::loadSettings);
@@ -47,8 +107,6 @@ QRuler::Application::Application(int &argc, char **argv)
         mainWindow_->saveSettings();
         settings_.save();
     });
-    // no need to call mainWindow_->show() because MainWindow::loadSettings()
-    // does it when setting its flags and it is called in its constructor
 }
 
 void QRuler::Application::preferences()
@@ -59,24 +117,6 @@ void QRuler::Application::preferences()
 
 int main(int argc, char *argv[])
 {
-    using namespace QRuler;
-
-    Application app(argc, argv);
-    QTranslator qtTranslator, translator;
-    QString filename = QStringLiteral("qt_") + QLocale::system().name();
-#if QT_VERSION < 0x060000
-    QString dir = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-#else
-    QString dir = QLibraryInfo::path(QLibraryInfo::TranslationsPath);
-#endif
-    if (qtTranslator.load(filename, dir))
-        app.installTranslator(&qtTranslator);
-
-    filename = QStringLiteral(PROJECT_ID) + '_' + QLocale::system().name();
-    dir = QStringLiteral(PROJECT_DATA_DIR) + QStringLiteral("/translations");
-
-    if (translator.load(filename, dir))
-        app.installTranslator(&translator);
-
+    QRuler::Application app(argc, argv);
     return app.exec();
 }

@@ -21,12 +21,11 @@
 #include <QColor>
 #include <QPoint>
 #include <QSize>
+#include <QString>
 
 namespace QRuler {
-
 class Settings
 {
-
 public:
     Settings();
 
