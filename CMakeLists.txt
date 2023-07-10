@@ -1,81 +1,68 @@
 cmake_minimum_required(VERSION 3.15)
-project(
-    QRuler
-    DESCRIPTION  "Simple ruler tool in Qt"
-    HOMEPAGE_URL "http://qtilities.github.io/qruler"
-    VERSION 0.1.1
-    LANGUAGES CXX
-)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+project(qruler VERSION 0.1.1 LANGUAGES CXX)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR})
-
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+#===============================================================================
+# Qt
+#===============================================================================
 # TODO: Qt6
 #find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 #find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
-
-include(AppStream)
-# Essential, non translatable application information
-# Translatable strings are passed via code
-string(TOLOWER ${PROJECT_NAME} PROJECT_ID)   # Might not be compatible with AppStream
-list(APPEND PROJECT_CATEGORIES "Qt;Utility") # Freedesktop menu categories
-set(PROJECT_AUTHOR_NAME        "redtide")
-set(PROJECT_AUTHOR_EMAIL       "redtid3@gmail.com") # Used also for organization email
-set(PROJECT_COPYRIGHT_YEAR     "2021-2023") # TODO: from git
-set(PROJECT_ICON_FORMAT        "svg")       # TODO: macOS and Windows
-set(PROJECT_ORGANIZATION_NAME  "qtilities") # Might be equal to PROJECT_AUTHOR_NAME
-set(PROJECT_ORGANIZATION_URL   "${PROJECT_ORGANIZATION_NAME}.github.io")
-set(PROJECT_REPOSITORY_URL     "https://github.com/${PROJECT_ORGANIZATION_NAME}/${PROJECT_ID}")
-set(PROJECT_REPOSITORY_BRANCH  "master")
-to_appstream_id("io.github.${PROJECT_ORGANIZATION_NAME}.${PROJECT_ID}"
-    PROJECT_APPSTREAM_ID)
-set(PROJECT_APPSTREAM_SPDX_ID  "CC0-1.0")
-set(PROJECT_SPDX_ID            "GPL-3.0-only")
 #===============================================================================
-# Source and resource files
+# Project files
 #===============================================================================
 set(PROJECT_UI_FILES
     src/dialogabout.ui
     src/dialogprefs.ui
 )
-set(PROJECT_SOURCES
+set(PROJECT_HEADERS
     src/application.hpp
-    src/application.cpp
     src/dialogabout.hpp
-    src/dialogabout.cpp
     src/dialogprefs.hpp
-    src/dialogprefs.cpp
     src/mainwindow.hpp
-    src/mainwindow.cpp
     src/settings.hpp
-    src/settings.cpp
-    ${PROJECT_UI_FILES}
 )
-set(PROJECT_MISC_FILES
-    README.md
+set(PROJECT_SOURCES
+    src/application.cpp
+    src/dialogabout.cpp
+    src/dialogprefs.cpp
+    src/mainwindow.cpp
+    src/settings.cpp
 )
 set(PROJECT_RESOURCES
     resources/resources.qrc
 )
-include(QtAppResources)
-set(PROJECT_ALL_FILES
-    ${PROJECT_DESKTOP_FILE}
-    ${PROJECT_MISC_FILES}
-    ${PROJECT_SOURCES}
-    ${PROJECT_RESOURCES}
-    ${PROJECT_QM_FILES}
+set(PROJECT_OTHER_FILES
+    .github/workflows/build.yml
+    README.md
 )
-source_group("Resource Files" FILES ${PROJECT_RESOURCES})
-source_group("Other Files" FILES ${PROJECT_MISC_FILES})
-source_group("UI Files" FILES ${PROJECT_UI_FILES})
+file(GLOB PROJECT_TRANSLATION_SOURCES "resources/translations/*")
+#===============================================================================
+# Configure files
+#===============================================================================
+include(${PROJECT_NAME}Config.cmake)
+include(QtAppResources)
 
-qt5_wrap_ui(PROJECT_UI_SOURCE ${PROJECT_UI_FILES})
-set_property(SOURCE ${PROJECT_UI_SOURCE} PROPERTY SKIP_AUTOMOC ON)
+set(PROJECT_ALL_FILES
+    ${PROJECT_OTHER_FILES}
+    ${PROJECT_RESOURCES}
+    ${PROJECT_HEADERS}
+    ${PROJECT_SOURCES}
+    ${PROJECT_TRANSLATION_SOURCES}
+    ${PROJECT_UI_FILES}
+    ${PROJECT_QM_FILES}
+    ${PROJECT_DESKTOP_FILES}
+)
+source_group("Other Files" FILES ${PROJECT_OTHER_FILES})
+source_group("Resource Files" FILES ${PROJECT_RESOURCES})
+source_group("Translation Sources" FILES ${PROJECT_TRANSLATION_SOURCES})
+source_group("UI Files" FILES ${PROJECT_UI_FILES})
 #===============================================================================
 # Application executable
 #===============================================================================
@@ -108,15 +95,14 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Widgets
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_ID}")
-target_compile_definitions(${PROJECT_NAME}
-    PUBLIC
-        APPLICATION_NAME="${PROJECT_NAME}"
-        ORGANIZATION_NAME="${PROJECT_ORGANIZATION_NAME}"
-        ORGANIZATION_DOMAIN="${PROJECT_ORGANIZATION_URL}"
-    PRIVATE
-        PROJECT_ID="${PROJECT_ID}"
-        PROJECT_DATA_DIR="${CMAKE_INSTALL_FULL_DATADIR}/${PROJECT_ID}"
-        PROJECT_ICON_PATH="${APPICON_FILE_PATH}"
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    APPLICATION_NAME="${PROJECT_NAME}"
+    ORGANIZATION_NAME="${PROJECT_ORGANIZATION_NAME}"
+    ORGANIZATION_DOMAIN="${PROJECT_ORGANIZATION_URL}"
+    PROJECT_ID="${PROJECT_ID}"
+    PROJECT_DATA_DIR="${CMAKE_INSTALL_FULL_DATADIR}/${PROJECT_ID}"
+    PROJECT_ICON_NAME="${PROJECT_ICON_FILE_NAME}"
+    PROJECT_ICON_SYSTEM_PATH="${PROJECT_ICON_FILE_PATH}/${PROJECT_ICON_FILE_NAME}"
 )
 #===============================================================================
 # Install application
