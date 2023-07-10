@@ -1,11 +1,10 @@
 /*
     QRuler - Simple on-screen pixel meter.
-    Copyright (C) 2021  Andrea Zanellato <redtid3@gmail.com>
+    Copyright (C) 2021 Andrea Zanellato <redtid3@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    the Free Software Foundation, version 3 of the License.
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -48,12 +47,24 @@ void QRuler::Settings::load()
                        QApplication::applicationDisplayName());
 
     settings.beginGroup("Options");
-    alwaysOnTop_ = settings.value(QStringLiteral("AlwaysOnTop"), Default::alwaysOnTop).toBool();
-    bgColor_ = settings.value(QStringLiteral("BackgroundColor"), Default::backgroundColor).value<QColor>();
-    bdColor_ = settings.value(QStringLiteral("BorderColor"), Default::borderColor).value<QColor>();
-    fgColor_ = settings.value(QStringLiteral("ForegroundColor"), Default::foregroundColor).value<QColor>();
-    opacity_ = settings.value(QStringLiteral("Opacity"), Default::opacity).toString();
-    position_ = settings.value(QStringLiteral("Position"), Default::position).toPoint();
+    alwaysOnTop_
+        = settings.value(QStringLiteral("AlwaysOnTop"), Default::alwaysOnTop)
+              .toBool();
+    bgColor_ = settings
+                   .value(QStringLiteral("BackgroundColor"),
+                          Default::backgroundColor)
+                   .value<QColor>();
+    bdColor_
+        = settings.value(QStringLiteral("BorderColor"), Default::borderColor)
+              .value<QColor>();
+    fgColor_ = settings
+                   .value(QStringLiteral("ForegroundColor"),
+                          Default::foregroundColor)
+                   .value<QColor>();
+    opacity_ = settings.value(QStringLiteral("Opacity"), Default::opacity)
+                   .toString();
+    position_ = settings.value(QStringLiteral("Position"), Default::position)
+                    .toPoint();
     size_ = settings.value(QStringLiteral("Size"), Default::size).toSize();
     settings.endGroup();
 }
