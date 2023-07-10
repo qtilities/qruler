@@ -2,81 +2,117 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>DialogPrefs</name>
+    <name>QRuler::DialogAbout</name>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="43"/>
+        <location filename="../../src/dialogabout.cpp" line="30"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="27"/>
+        <source>Informations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="62"/>
+        <source>qrc:/about.html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="81"/>
+        <source>Thanks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="119"/>
+        <source>qrc:/thanks.html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="138"/>
+        <source>License</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.ui" line="176"/>
+        <source>qrc:/license.html</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QRuler::DialogPrefs</name>
+    <message>
+        <location filename="../../src/dialogprefs.cpp" line="53"/>
+        <source>Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogprefs.ui" line="21"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="58"/>
+        <location filename="../../src/dialogprefs.ui" line="52"/>
         <source>Opacity:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="65"/>
+        <location filename="../../src/dialogprefs.ui" line="59"/>
         <source>Always on top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="90"/>
+        <location filename="../../src/dialogprefs.ui" line="81"/>
         <source>Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="105"/>
-        <source>Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/dialogprefs.ui" line="139"/>
+        <location filename="../../src/dialogprefs.ui" line="124"/>
         <source>Border</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="146"/>
+        <location filename="../../src/dialogprefs.ui" line="110"/>
+        <source>Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogprefs.ui" line="96"/>
         <source>Text</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>azd::DialogPrefs</name>
+    <name>QRuler::MainWindow</name>
     <message>
-        <location filename="../../src/dialogprefs.cpp" line="43"/>
-        <source>Preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>azd::QRuler</name>
-    <message>
-        <location filename="../../src/qruler.cpp" line="40"/>
-        <source>Quit</source>
+        <location filename="../../src/mainwindow.cpp" line="53"/>
+        <source>&amp;About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qruler.cpp" line="150"/>
+        <location filename="../../src/mainwindow.cpp" line="54"/>
+        <source>&amp;Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/mainwindow.cpp" line="58"/>
+        <source>&amp;Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/mainwindow.cpp" line="138"/>
         <source>Width:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qruler.cpp" line="150"/>
+        <location filename="../../src/mainwindow.cpp" line="138"/>
+        <location filename="../../src/mainwindow.cpp" line="139"/>
         <source>px</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qruler.cpp" line="151"/>
+        <location filename="../../src/mainwindow.cpp" line="139"/>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/qruler.cpp" line="214"/>
-        <source>Error loading about file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/qruler.cpp" line="220"/>
-        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
