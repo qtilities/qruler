@@ -28,6 +28,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPen>
+#include <QShortcut>
 #include <QTextStream>
 
 namespace Default {
@@ -56,6 +57,12 @@ QRuler::MainWindow::MainWindow(QWidget *parent)
     mnuContext_->addSeparator();
     mnuContext_->addAction(iconQuit, tr("&Quit"), &QCoreApplication::quit,
                            QKeySequence::Quit);
+
+    QShortcut *sctPrefs = new QShortcut(QKeySequence::Preferences, this);
+    QShortcut *sctQuit = new QShortcut(QKeySequence::Quit, this);
+
+    connect(sctPrefs, &QShortcut::activated, theApp, &Application::preferences);
+    connect(sctQuit, &QShortcut::activated, qApp, &QCoreApplication::quit);
 
     setWindowIcon(theApp->icon());
     setMouseTracking(true);
