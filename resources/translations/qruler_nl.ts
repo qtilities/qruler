@@ -6,42 +6,42 @@
     <message>
         <location filename="../../src/dialogabout.cpp" line="46"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Over</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.cpp" line="54"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Ontwikkelaar</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="27"/>
         <source>Informations</source>
-        <translation type="unfinished"></translation>
+        <translation>Informatie</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="62"/>
         <source>qrc:/about.html</source>
-        <translation type="unfinished"></translation>
+        <translation>qrc:/about.html</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="81"/>
         <source>Thanks</source>
-        <translation type="unfinished"></translation>
+        <translation>Met dank aan</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="119"/>
         <source>qrc:/thanks.html</source>
-        <translation type="unfinished"></translation>
+        <translation>qrc:/thanks.html</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="138"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licentie</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="176"/>
         <source>qrc:/license.html</source>
-        <translation type="unfinished"></translation>
+        <translation>qrc:/license.html</translation>
     </message>
 </context>
 <context>
@@ -49,42 +49,42 @@
     <message>
         <location filename="../../src/dialogprefs.cpp" line="52"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="21"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Algemeen</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="52"/>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Doorzichtigheid:</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="59"/>
         <source>Always on top</source>
-        <translation type="unfinished"></translation>
+        <translation>Altĳd bovenaan</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="81"/>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleuren</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="124"/>
         <source>Border</source>
-        <translation type="unfinished"></translation>
+        <translation>Kader</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="110"/>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Achtergrond</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="96"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst</translation>
     </message>
 </context>
 <context>
@@ -92,33 +92,33 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="53"/>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Over</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="54"/>
         <source>&amp;Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Instellingen</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="58"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Afsluiten</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="144"/>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Breedte:</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="144"/>
         <location filename="../../src/mainwindow.cpp" line="145"/>
         <source>px</source>
-        <translation type="unfinished"></translation>
+        <translation>px</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="145"/>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lengte:</translation>
     </message>
 </context>
 </TS>
