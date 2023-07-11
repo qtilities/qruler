@@ -42,10 +42,11 @@ if (UNIX AND NOT APPLE)
     #===========================================================================
     # Translations
     #===========================================================================
-    # TODO: Search in PATH
-    set(LXQT_CMAKE_MODULES_DIR "/usr/share/cmake/lxqt-build-tools/modules")
+    set(LXQT_CMAKE_MODULES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/lxqt-build-tools/cmake/modules")
     list(APPEND CMAKE_MODULE_PATH ${LXQT_CMAKE_MODULES_DIR})
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_BINARY_DIR}/external/lxqt-build-tools/install")
 
+    message(STATUS "LXQT_CMAKE_MODULES_DIR: ${LXQT_CMAKE_MODULES_DIR}")
     option(UPDATE_TRANSLATIONS "Update source translation files" OFF)
 
     # TODO: include(LXQtPreventInSourceBuilds) ???
