@@ -10,7 +10,7 @@
     <height>256</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="layout">
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -20,7 +20,7 @@
       <attribute name="title">
        <string>General</string>
       </attribute>
-      <widget class="QWidget" name="gridLayoutWidget_2">
+      <widget class="QWidget" name="tabGeneralLayoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -80,7 +80,7 @@
       <attribute name="title">
        <string>Colors</string>
       </attribute>
-      <widget class="QWidget" name="gridLayoutWidget">
+      <widget class="QWidget" name="tabColorsLayoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
