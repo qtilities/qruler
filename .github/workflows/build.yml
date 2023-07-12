@@ -60,7 +60,7 @@ jobs:
       run: cmake --build ${{ runner.workspace }}/build --config "$build_type"
 
     - name: Create package
-      if: ${{ github.ref_type == 'tag' && ${{ matrix.config.cc == 'gcc' }} }}
+      if:   ${{ github.ref_type == 'tag' && matrix.config.cc == 'gcc' }}
       working-directory: ${{ runner.workspace }}/build
       run: |
         DESTDIR="$(pwd)/$install_name" \
