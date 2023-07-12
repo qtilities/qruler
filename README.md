@@ -48,7 +48,7 @@ DESTDIR="$(pwd)/package" cmake --build build --target install
 
 ## Translations
 
-Translations are managed vis [LXQt Weblate] Platform.
+Translations are managed via [LXQt Weblate] Platform.
 
 [![Translations]](https://translate.lxqt-project.org/engage/redtide/?utm_source=widget)
 
