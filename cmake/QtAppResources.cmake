@@ -41,6 +41,20 @@ if (UNIX AND NOT APPLE)
     )
     #===========================================================================
     # Translations
+    #
+    # We currently use only 3 files from LXQt build tools:
+    #
+    # - LXQtTranslateDesktop.cmake
+    # - LXQtTranslateDesktop.pl
+    # - LXQtTranslateTs.cmake
+    #
+    # When using a Git fork, we should build it first because the latter needs
+    # to be generated (it's a ".in" file).
+    #
+    # Instead, we append the first two to CMAKE_MODULE_PATH as LXQT_CMAKE_MODULES_DIR
+    # directly from the source directory and append the generated version,
+    # after CMake configuration, from the build directory.
+    #
     #===========================================================================
     set(LXQT_CMAKE_MODULES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/lxqt-build-tools/cmake/modules")
     list(APPEND CMAKE_MODULE_PATH ${LXQT_CMAKE_MODULES_DIR})

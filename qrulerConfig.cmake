@@ -2,7 +2,7 @@
 # Editable project configuration
 #
 # Essential, non translatable application information (except DESCRIPTION).
-# translatable strings are passed via code.
+# Translatable strings are passed via code.
 #===============================================================================
 string(TOLOWER ${PROJECT_NAME} PROJECT_ID)   # Might not be compatible with AppStream
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
