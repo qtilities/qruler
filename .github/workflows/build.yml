@@ -16,7 +16,6 @@ defaults:
 
 env:
   build_type: Release
-  app_id:     qruler
 
 jobs:
   linux:
@@ -30,7 +29,7 @@ jobs:
     env:
       cc:           ${{ matrix.config.cc }}
       cxx:          ${{ matrix.config.cxx }}
-      install_name: ${{ app_id }}-${{ github.ref_name }}-linux
+      install_name: qruler-${{ github.ref_name }}-linux
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -103,5 +102,5 @@ jobs:
         draft:      false
         prerelease: false
         files: |
-          ${{ env.app_id }}-${{ github.ref_name }}-*
-          ${{ env.app_id }}-${{ github.ref_name }}.*
+          qruler-${{ github.ref_name }}-*
+          qruler-${{ github.ref_name }}.*
