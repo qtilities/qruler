@@ -15,8 +15,8 @@
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="27"/>
-        <source>Informations</source>
-        <translation>Informazioni</translation>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="62"/>
