@@ -59,16 +59,13 @@ jobs:
     - name: Build
       run: cmake --build ${{ runner.workspace }}/build --config "$build_type"
 
-    - name: Install
-      if: ${{ matrix.config.cc == 'gcc' }}
+    - name: Create package
+      if: ${{ github.ref_type == 'tag' && ${{ matrix.config.cc == 'gcc' }} }}
       working-directory: ${{ runner.workspace }}/build
       run: |
         DESTDIR="$(pwd)/$install_name" \
           cmake --build . --config "$build_type" --target install
-
-    - name: Create package
-    # if:   ${{ github.ref_type == 'tag' }}
-      run:  tar czvf "$install_name".tar.gz "$install_name"
+        tar czvf "$install_name".tar.gz "$install_name"
 
     - name: Upload Artifacts
       if:   ${{ github.ref_type == 'tag' && matrix.config.cc == 'gcc' }}
