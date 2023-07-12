@@ -30,7 +30,7 @@ jobs:
     env:
       cc:           ${{ matrix.config.cc }}
       cxx:          ${{ matrix.config.cxx }}
-      install_name: $app_id-${{ github.ref_name }}-linux
+      install_name: ${{ env.app_id }}-${{ github.ref_name }}-linux
     steps:
     - name: Checkout
       uses: actions/checkout@v3
