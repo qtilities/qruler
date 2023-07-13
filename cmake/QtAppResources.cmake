@@ -30,7 +30,7 @@ if (UNIX AND NOT APPLE)
     # TODO: This file needs to be processed first by `configure_file()` for `@` variables,
     # then the resulting file, the one below, to be processed by `lxqt_translate_desktop`.
     # Would be better doing this in one step in `lxqt_translate_desktop` only.
-    set(DESKTOP_FILE_IN "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_APPSTREAM_ID}.desktop.in")
+    set(DESKTOP_FILE_IN "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_ID}.desktop.in")
     configure_file("resources/in/linux/application.desktop.in"
         "${DESKTOP_FILE_IN}" @ONLY
     )
@@ -76,10 +76,12 @@ if (UNIX AND NOT APPLE)
     lxqt_translate_ts(PROJECT_QM_FILES
         UPDATE_TRANSLATIONS ${UPDATE_TRANSLATIONS}
         SOURCES             ${PROJECT_SOURCES} ${PROJECT_UI_FILES}
+        TEMPLATE            "${PROJECT_ID}"
         TRANSLATION_DIR     "resources/translations"
         INSTALL_DIR         "${CMAKE_INSTALL_DATADIR}/${PROJECT_ID}/translations"
     )
     lxqt_translate_desktop(PROJECT_DESKTOP_FILES
+        DESKTOP_FILE_STEM   "${PROJECT_APPSTREAM_ID}"
         SOURCES             "${DESKTOP_FILE_IN}"
         TRANSLATION_DIR     "resources/translations"
         USE_YAML
