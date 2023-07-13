@@ -37,7 +37,7 @@ public:
 private:
     void accept() override;
 
-    void setColorForLabel(QLabel *label);
+    void setColorForLabel(QLabel *);
 
     Ui::DialogPrefs *ui;
 };

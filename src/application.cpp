@@ -51,7 +51,7 @@ void QRuler::Application::initLocale()
 #if 1
     QLocale locale = QLocale::system();
 #else
-    QLocale locale(QLocale("it_IT"));
+    QLocale locale(QLocale("it"));
     QLocale::setDefault(locale);
 #endif
     // Qt translations (buttons and the like)

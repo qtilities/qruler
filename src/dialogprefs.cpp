@@ -27,7 +27,6 @@ QRuler::DialogPrefs::DialogPrefs(QWidget *parent)
     , ui(new QRuler::Ui::DialogPrefs)
 {
     ui->setupUi(this);
-
     ui->lblColorBg->setAutoFillBackground(true);
     ui->lblColorBd->setAutoFillBackground(true);
     ui->lblColorFg->setAutoFillBackground(true);
@@ -77,7 +76,6 @@ void QRuler::DialogPrefs::loadSettings()
 void QRuler::DialogPrefs::accept()
 {
     Settings &settings = static_cast<Application *>(qApp)->settings();
-
     settings.setAlwaysOnTop(ui->chkAlwaysOnTop->isChecked());
     settings.setOpacity(QString::number(ui->sbxOpacity->value(), 'g', 2));
     settings.setBackgroundColor(
@@ -93,7 +91,7 @@ void QRuler::DialogPrefs::accept()
 
 void QRuler::DialogPrefs::setColorForLabel(QLabel *label)
 {
-    const QColor color = QColorDialog::getColor(Qt::white, this);
+    const QColor color = QColorDialog::getColor();
     if (color.isValid()) {
         label->setText(color.name());
         label->setPalette(QPalette(color));
