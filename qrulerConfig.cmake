@@ -5,7 +5,6 @@
 # Translatable strings are passed via code.
 #===============================================================================
 string(TOLOWER ${PROJECT_NAME} PROJECT_ID)   # Might not be compatible with AppStream
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 list(APPEND PROJECT_CATEGORIES "Qt;Utility") # Freedesktop menu categories
 set(PROJECT_AUTHOR_NAME        "Andrea Zanellato")
 set(PROJECT_AUTHOR_EMAIL       "redtid3@gmail.com") # Used also for organization email

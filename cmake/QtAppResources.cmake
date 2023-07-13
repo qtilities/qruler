@@ -39,28 +39,34 @@ if (UNIX AND NOT APPLE)
     configure_file("resources/icons/application.icon.${PROJECT_ICON_FORMAT}"
         "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_ICON_FILE_NAME}" COPYONLY
     )
-    #===========================================================================
-    # Translations
-    #
-    # We currently use only 3 files from LXQt build tools:
-    #
-    # - LXQtTranslateDesktop.cmake
-    # - LXQtTranslateDesktop.pl
-    # - LXQtTranslateTs.cmake
-    #
-    # When using a Git fork, we should build it first because the latter needs
-    # to be generated (it's a ".in" file).
-    #
-    # Instead, we append the first two to CMAKE_MODULE_PATH as LXQT_CMAKE_MODULES_DIR
-    # directly from the source directory and append the generated version,
-    # after CMake configuration, from the build directory.
-    #
-    #===========================================================================
+#===============================================================================
+# Translations
+#===============================================================================
+# We currently use only 3 files from LXQt build tools:
+#
+# - LXQtTranslateDesktop.cmake
+# - LXQtTranslateDesktop.pl
+# - LXQtTranslateTs.cmake
+#
+# When it is necessary to include the tools as a Git submodule from a patched fork,
+# we don't need/want to call `add_subdirectory()` to build and install the modules,
+# so we can simply use the modules directory as is from their source directory.
+#
+# LXQtTranslateTs.cmake comes as a ".in" template file to configure, so we generate it
+# in the same directory for convenience, and add that CMake modules source directory
+# directly to CMAKE_MODULE_PATH as LXQT_CMAKE_MODULES_DIR
+# (the configured file was previously added to .gitignore).
+#===============================================================================
+    set(LXQT_MIN_LINGUIST_VERSION "${QT_VERSION}") # Required to configure the file.
     set(LXQT_CMAKE_MODULES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/lxqt-build-tools/cmake/modules")
     list(APPEND CMAKE_MODULE_PATH ${LXQT_CMAKE_MODULES_DIR})
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_BINARY_DIR}/external/lxqt-build-tools/install")
-
+    configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/external/lxqt-build-tools/cmake/modules/LXQtTranslateTs.cmake.in"
+        "${LXQT_CMAKE_MODULES_DIR}/LXQtTranslateTs.cmake"
+        @ONLY
+    )
     message(STATUS "LXQT_CMAKE_MODULES_DIR: ${LXQT_CMAKE_MODULES_DIR}")
+
     option(UPDATE_TRANSLATIONS "Update source translation files" OFF)
 
     # TODO: include(LXQtPreventInSourceBuilds) ???
