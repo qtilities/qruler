@@ -1,6 +1,10 @@
 /*build*
 *.bak
+*.diff
+*.patch
 *.json
 *.qm
 *.user*
 resources/about.md
+compile_commands.json
+PrintAllVariables.cmake
