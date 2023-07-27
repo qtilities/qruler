@@ -3,8 +3,8 @@
         <file alias="application-exit">icons/application-exit.svgz</file>
         <file alias="help-about">icons/help-about.svgz</file>
         <file alias="preferences-system">icons/preferences-system.svgz</file>
-        <file>authors</file>
         <file alias="info">about.md</file>
+        <file>authors</file>
         <file alias="license">copying</file>
     </qresource>
 </RCC>
