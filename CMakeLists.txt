@@ -8,11 +8,12 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 #===============================================================================
 # Qt
 #===============================================================================
+set(PROJECT_QT_VERSION 5 CACHE STRING "Qt version to use: 5 (default) or 6")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
-find_package(QT REQUIRED COMPONENTS LinguistTools Widgets NAMES Qt5) # TODO: Qt6
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS LinguistTools Widgets)
+find_package(QT NAMES Qt${PROJECT_QT_VERSION})
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED LinguistTools Widgets)
 #===============================================================================
 # Project files
 #===============================================================================
@@ -22,13 +23,16 @@ set(PROJECT_UI_FILES
 )
 set(PROJECT_HEADERS
     src/application.hpp
+    src/litebutton.hpp
     src/dialogabout.hpp
     src/dialogprefs.hpp
     src/mainwindow.hpp
+    src/qtilities.hpp
     src/settings.hpp
 )
 set(PROJECT_SOURCES
     src/application.cpp
+    src/litebutton.cpp
     src/dialogabout.cpp
     src/dialogprefs.cpp
     src/mainwindow.cpp
@@ -40,24 +44,28 @@ set(PROJECT_RESOURCES
 )
 set(PROJECT_OTHER_FILES
     .github/workflows/build.yml
+    .clang-format
+    .editorconfig
+    .gitattributes
+    .gitignore
     README.md
 )
 file(GLOB PROJECT_TRANSLATION_SOURCES "resources/translations/*")
 #===============================================================================
 # Configure files
 #===============================================================================
-include(${PROJECT_NAME}Config.cmake)
+include(Config.cmake)
 include(QtAppResources)
 
 set(PROJECT_ALL_FILES
-    ${PROJECT_OTHER_FILES}
-    ${PROJECT_RESOURCES}
+    ${PROJECT_DESKTOP_FILES}
     ${PROJECT_HEADERS}
+    ${PROJECT_RESOURCES}
     ${PROJECT_SOURCES}
+    ${PROJECT_OTHER_FILES}
+    ${PROJECT_QM_FILES}
     ${PROJECT_TRANSLATION_SOURCES}
     ${PROJECT_UI_FILES}
-    ${PROJECT_QM_FILES}
-    ${PROJECT_DESKTOP_FILES}
 )
 source_group("Other Files" FILES ${PROJECT_OTHER_FILES})
 source_group("Resource Files" FILES ${PROJECT_RESOURCES})
@@ -104,7 +112,7 @@ if (UNIX AND NOT APPLE)
     include(GNUInstallDirs)
     install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 else()
-    set_target_properties(test PROPERTIES
+    set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE_GUI_IDENTIFIER ${PROJECT_ORGANIZATION_URL}
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -118,7 +126,7 @@ else()
     )
 endif()
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(test)
+    qt_finalize_executable(${PROJECT_NAME})
 endif()
 #===============================================================================
 # Project information
