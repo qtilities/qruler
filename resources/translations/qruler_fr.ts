@@ -2,17 +2,27 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="fr">
 <context>
-    <name>QRuler::DialogAbout</name>
+    <name>Qtilities::Application</name>
     <message>
-        <location filename="../../src/dialogabout.cpp" line="46"/>
-        <source>About</source>
-        <translation>À propos</translation>
+        <location filename="../../src/application.cpp" line="102"/>
+        <source>&amp;About</source>
+        <translation>&amp;A propos</translation>
     </message>
     <message>
-        <location filename="../../src/dialogabout.cpp" line="54"/>
-        <source>Author</source>
-        <translation>Auteur</translation>
+        <location filename="../../src/application.cpp" line="106"/>
+        <location filename="../../src/application.cpp" line="111"/>
+        <source>&amp;Preferences</source>
+        <translation>&amp;Préférences</translation>
     </message>
+    <message>
+        <location filename="../../src/application.cpp" line="107"/>
+        <location filename="../../src/application.cpp" line="112"/>
+        <source>&amp;Quit</source>
+        <translation>&amp;Quitter</translation>
+    </message>
+</context>
+<context>
+    <name>Qtilities::DialogAbout</name>
     <message>
         <location filename="../../src/dialogabout.ui" line="27"/>
         <source>Information</source>
@@ -21,7 +31,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="62"/>
         <source>qrc:/about.html</source>
-        <translation>qrc:/about.html</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="81"/>
@@ -31,7 +41,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="119"/>
         <source>qrc:/thanks.html</source>
-        <translation>qrc:/thanks.html</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="138"/>
@@ -41,84 +51,79 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="176"/>
         <source>qrc:/license.html</source>
-        <translation>qrc:/license.html</translation>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.cpp" line="55"/>
+        <source>Author</source>
+        <translation>Auteur</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogabout.cpp" line="60"/>
+        <source>About</source>
+        <translation>À propos</translation>
     </message>
 </context>
 <context>
-    <name>QRuler::DialogPrefs</name>
+    <name>Qtilities::DialogPrefs</name>
     <message>
-        <location filename="../../src/dialogprefs.cpp" line="52"/>
-        <source>Preferences</source>
-        <translation>Préférences</translation>
-    </message>
-    <message>
-        <location filename="../../src/dialogprefs.ui" line="21"/>
+        <location filename="../../src/dialogprefs.ui" line="36"/>
         <source>General</source>
         <translation>Général</translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="52"/>
+        <location filename="../../src/dialogprefs.ui" line="70"/>
         <source>Opacity:</source>
         <translation>Opacité :</translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="59"/>
+        <location filename="../../src/dialogprefs.ui" line="77"/>
         <source>Always on top</source>
         <translation>Toujours au dessus</translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="81"/>
+        <location filename="../../src/dialogprefs.ui" line="99"/>
         <source>Colors</source>
         <translation>Couleurs</translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="124"/>
-        <source>Border</source>
-        <translation>Bordure</translation>
-    </message>
-    <message>
-        <location filename="../../src/dialogprefs.ui" line="110"/>
+        <location filename="../../src/dialogprefs.ui" line="120"/>
         <source>Background</source>
         <translation>Arrière plan</translation>
     </message>
     <message>
-        <location filename="../../src/dialogprefs.ui" line="96"/>
+        <location filename="../../src/dialogprefs.ui" line="143"/>
+        <source>Border</source>
+        <translation>Bordure</translation>
+    </message>
+    <message>
+        <location filename="../../src/dialogprefs.ui" line="160"/>
         <source>Text</source>
         <translation>Texte</translation>
     </message>
+    <message>
+        <location filename="../../src/dialogprefs.cpp" line="41"/>
+        <source>Preferences</source>
+        <translation>Préférences</translation>
+    </message>
 </context>
 <context>
-    <name>QRuler::MainWindow</name>
+    <name>Qtilities::MainWindow</name>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="53"/>
-        <source>&amp;About</source>
-        <translation>&amp;A propos</translation>
-    </message>
-    <message>
-        <location filename="../../src/mainwindow.cpp" line="54"/>
-        <source>&amp;Preferences</source>
-        <translation>&amp;Préférences</translation>
-    </message>
-    <message>
-        <location filename="../../src/mainwindow.cpp" line="58"/>
-        <source>&amp;Quit</source>
-        <translation>&amp;Quitter</translation>
-    </message>
-    <message>
-        <location filename="../../src/mainwindow.cpp" line="144"/>
+        <location filename="../../src/mainwindow.cpp" line="106"/>
         <source>Width:</source>
-        <translation>Largeur :</translation>
+        <translation>Largeur:</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="144"/>
-        <location filename="../../src/mainwindow.cpp" line="145"/>
+        <location filename="../../src/mainwindow.cpp" line="106"/>
+        <location filename="../../src/mainwindow.cpp" line="107"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="145"/>
+        <location filename="../../src/mainwindow.cpp" line="106"/>
         <source>Height:</source>
-        <translation>Hauteur :</translation>
+        <translation>Hauteur:</translation>
     </message>
 </context>
 </TS>
