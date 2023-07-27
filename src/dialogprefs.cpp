@@ -1,62 +1,58 @@
 /*
-    QRuler - Simple on-screen pixel meter.
-    Copyright (C) 2021-2023  Andrea Zanellato <redtid3@gmail.com>
+    MIT License
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, version 3 of the License.
+    Copyright (c) 2021-2023 Andrea Zanellato <redtid3@gmail.com>
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to
+    deal in the Software without restriction, including without limitation the
+    rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+    sell copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+    IN THE SOFTWARE.
 */
 #include "dialogprefs.hpp"
 #include "ui_dialogprefs.h"
 #include "application.hpp"
+#include "litebutton.hpp"
 #include "settings.hpp"
 
 #include <QColorDialog>
 #include <QPushButton>
 
-QRuler::DialogPrefs::DialogPrefs(QWidget *parent)
+Qtilities::DialogPrefs::DialogPrefs(QWidget *parent)
     : QDialog(parent)
-    , ui(new QRuler::Ui::DialogPrefs)
+    , ui(new Qtilities::Ui::DialogPrefs)
 {
     ui->setupUi(this);
-    ui->lblColorBg->setAutoFillBackground(true);
-    ui->lblColorBd->setAutoFillBackground(true);
-    ui->lblColorFg->setAutoFillBackground(true);
 
     loadSettings();
-
-    connect(ui->buttonBox, &QDialogButtonBox::accepted, this,
-            &DialogPrefs::accept);
-    connect(ui->buttonBox, &QDialogButtonBox::rejected, this,
-            &DialogPrefs::reject);
-
-    connect(ui->pbnBg, &QAbstractButton::clicked, this,
-            [this]() { setColorForLabel(ui->lblColorBg); });
-    connect(ui->pbnBd, &QAbstractButton::clicked, this,
-            [this]() { setColorForLabel(ui->lblColorBd); });
-    connect(ui->pbnFg, &QAbstractButton::clicked, this,
-            [this]() { setColorForLabel(ui->lblColorFg); });
-
-    Application *theApp = static_cast<Application *>(qApp);
-
-    setWindowIcon(theApp->icon());
+    setWindowIcon(QIcon::fromTheme("preferences-system", QIcon(":/preferences-system")));
     setWindowTitle(tr("Preferences"));
+
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &DialogPrefs::accept);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &DialogPrefs::reject);
+
+    connect(ui->lbnBgColor, &LiteButton::clicked, this, [this]() { setButtonColor(ui->lbnBgColor); });
+    connect(ui->lbnBdColor, &LiteButton::clicked, this, [this]() { setButtonColor(ui->lbnBdColor); });
+    connect(ui->lbnFgColor, &LiteButton::clicked, this, [this]() { setButtonColor(ui->lbnFgColor); });
 }
 
-QRuler::DialogPrefs::~DialogPrefs() { delete ui; }
+Qtilities::DialogPrefs::~DialogPrefs() { delete ui; }
 
-void QRuler::DialogPrefs::loadSettings()
+void Qtilities::DialogPrefs::loadSettings()
 {
     Settings &settings = static_cast<Application *>(qApp)->settings();
-
     ui->chkAlwaysOnTop->setChecked(settings.alwaysOnTop());
     ui->sbxOpacity->setValue(settings.opacity().toDouble());
 
@@ -64,36 +60,39 @@ void QRuler::DialogPrefs::loadSettings()
     QColor bdColor = settings.borderColor();
     QColor fgColor = settings.foregroundColor();
 
-    ui->lblColorBg->setPalette(QPalette(bgColor));
-    ui->lblColorBd->setPalette(QPalette(bdColor));
-    ui->lblColorFg->setPalette(QPalette(fgColor));
+    ui->lbnBgColor->setPalette(QPalette(bgColor));
+    ui->lbnBdColor->setPalette(QPalette(bdColor));
+    ui->lbnFgColor->setPalette(QPalette(fgColor));
 
-    ui->lblColorBg->setText(bgColor.name());
-    ui->lblColorBd->setText(bdColor.name());
-    ui->lblColorFg->setText(fgColor.name());
+    ui->lbnBgColor->setText(bgColor.name());
+    ui->lbnBdColor->setText(bdColor.name());
+    ui->lbnFgColor->setText(fgColor.name());
 }
 
-void QRuler::DialogPrefs::accept()
+void Qtilities::DialogPrefs::accept()
 {
     Settings &settings = static_cast<Application *>(qApp)->settings();
     settings.setAlwaysOnTop(ui->chkAlwaysOnTop->isChecked());
     settings.setOpacity(QString::number(ui->sbxOpacity->value(), 'g', 2));
-    settings.setBackgroundColor(
-        ui->lblColorBg->palette().color(QPalette::Window));
-    settings.setBorderColor(ui->lblColorBd->palette().color(QPalette::Window));
-    settings.setForegroundColor(
-        ui->lblColorFg->palette().color(QPalette::Window));
-
+    settings.setBackgroundColor(ui->lbnBgColor->palette().color(QPalette::Window));
+    settings.setBorderColor(ui->lbnBdColor->palette().color(QPalette::Window));
+    settings.setForegroundColor(ui->lbnFgColor->palette().color(QPalette::Window));
     QDialog::accept();
-
     hide();
 }
 
-void QRuler::DialogPrefs::setColorForLabel(QLabel *label)
+void Qtilities::DialogPrefs::setButtonColor(LiteButton *button)
 {
-    const QColor color = QColorDialog::getColor();
+    Settings &settings = static_cast<Application *>(qApp)->settings();
+    QColor initialColor = settings.backgroundColor();
+    if (button == ui->lbnBdColor)
+        initialColor = settings.borderColor();
+    else
+        initialColor = settings.foregroundColor();
+
+    const QColor color = QColorDialog::getColor(initialColor, this);
     if (color.isValid()) {
-        label->setText(color.name());
-        label->setPalette(QPalette(color));
+        button->setPalette(QPalette(color));
+        button->setText(color.name());
     }
 }

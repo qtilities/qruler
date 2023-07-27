@@ -22,7 +22,22 @@
 #include <QSize>
 #include <QString>
 
-namespace QRuler {
+namespace Qtilities {
+
+namespace Default {
+static const bool alwaysOnTop{true};
+static constexpr QColor backgroundColor{QColor(0x92, 0xd7, 0xff)};
+static constexpr QColor borderColor{QColor(0xdd, 0xdd, 0xdd)};
+static constexpr QColor foregroundColor{QColor(0x94, 0x00, 0x80)};
+static constexpr QPoint position{QPoint(200, 200)};
+static constexpr QSize size{QSize(240, 120)};
+static constexpr QSize minimumSize{QSize(120, 100)};
+static constexpr int fontSize{7};
+static constexpr int measureFontSize{10};
+static const QString opacity = QStringLiteral("0.5");
+static const QString fontFamily = QStringLiteral("monospace");
+} // namespace Default
+
 class Settings
 {
 public:
@@ -61,4 +76,4 @@ private:
     QPoint position_;
     QSize size_;
 };
-} // namespace QRuler
+} // namespace Qtilities

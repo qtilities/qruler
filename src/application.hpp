@@ -22,29 +22,33 @@
 #include <QIcon>
 #include <QTranslator>
 
-namespace QRuler {
+class QMenu;
+
+namespace Qtilities {
+
 class MainWindow;
-class DialogPrefs;
 class Application : public QApplication
 {
     Q_OBJECT
 
 public:
     Application(int argc, char *argv[]);
-    Settings &settings() { return settings_; }
-    QIcon icon() const { return appIcon_; }
+    void about();
     void preferences();
+    void showContextMenu(const QPoint &);
+    QIcon icon() const { return appIcon_; }
+    Settings &settings() { return settings_; }
 
 private:
     void initLocale();
     void initUi();
 
     MainWindow *mainWindow_;
-    DialogPrefs *dlgPrefs_;
     Settings settings_;
 
     QIcon appIcon_;
+    QMenu *ctxMenu_;
     QTranslator qtTranslator_;
     QTranslator translator_;
 };
-} // namespace QRuler
+} // namespace Qtilities

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QRuler::DialogPrefs</class>
- <widget class="QDialog" name="QRuler::DialogPrefs">
+ <class>Qtilities::DialogPrefs</class>
+ <widget class="QDialog" name="Qtilities::DialogPrefs">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,6 +11,21 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="layout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetNoConstraint</enum>
+   </property>
+   <property name="leftMargin">
+    <number>6</number>
+   </property>
+   <property name="topMargin">
+    <number>6</number>
+   </property>
+   <property name="rightMargin">
+    <number>6</number>
+   </property>
+   <property name="bottomMargin">
+    <number>6</number>
+   </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -25,11 +40,14 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>341</width>
-         <height>141</height>
+         <width>351</width>
+         <height>161</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="layGeneral">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetNoConstraint</enum>
+        </property>
         <item row="1" column="1">
          <widget class="QDoubleSpinBox" name="sbxOpacity">
           <property name="sizePolicy">
@@ -85,48 +103,29 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>341</width>
-         <height>141</height>
+         <width>351</width>
+         <height>161</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="layColors">
-        <item row="2" column="0">
-         <widget class="QPushButton" name="pbnFg">
-          <property name="text">
-           <string>Text</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="lblColorBd">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetNoConstraint</enum>
+        </property>
+        <property name="spacing">
+         <number>6</number>
+        </property>
         <item row="0" column="0">
-         <widget class="QPushButton" name="pbnBg">
+         <widget class="QLabel" name="lblBackground">
           <property name="text">
            <string>Background</string>
           </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="lblColorFg">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="pbnBd">
-          <property name="text">
-           <string>Border</string>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLabel" name="lblColorBg">
+         <widget class="Qtilities::LiteButton" name="lbnBgColor">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -135,6 +134,33 @@
           </property>
           <property name="text">
            <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="lblBorder">
+          <property name="text">
+           <string>Border</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="Qtilities::LiteButton" name="lbnFgColor">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="lblText">
+          <property name="text">
+           <string>Text</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -150,6 +176,13 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="1" column="1">
+         <widget class="Qtilities::LiteButton" name="lbnBdColor">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -174,6 +207,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Qtilities::LiteButton</class>
+   <extends>QLabel</extends>
+   <header>src/litebutton.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

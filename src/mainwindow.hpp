@@ -19,9 +19,8 @@
 
 #include <QWidget>
 
-class QMenu;
+namespace Qtilities {
 
-namespace QRuler {
 class MainWindow : public QWidget
 {
     Q_OBJECT
@@ -41,14 +40,11 @@ private:
     QSize minimumSizeHint() const override;
     QSize sizeHint() const override;
 
-    void about();
-
     void drawXLine();
     void drawYLine();
 
     bool changeWidth;
     bool changeHeight;
     QPoint dragPosition;
-    QMenu *mnuContext_;
 };
-} // namespace QRuler
+} // namespace Qtilities

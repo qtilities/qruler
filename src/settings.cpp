@@ -15,21 +15,12 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "settings.hpp"
+#include "qtilities.hpp"
 
 #include <QApplication>
 #include <QSettings>
 
-namespace Default {
-static const bool alwaysOnTop = true;
-static const QString opacity = QStringLiteral("0.5");
-static const QColor backgroundColor = QColor(0x92, 0xd7, 0xff);
-static const QColor borderColor = QColor(0xdd, 0xdd, 0xdd);
-static const QColor foregroundColor = QColor(0x94, 0x00, 0x80);
-static const QPoint position = QPoint(200, 200);
-static const QSize size = QSize(240, 120);
-} // namespace Default
-
-QRuler::Settings::Settings()
+Qtilities::Settings::Settings()
     : alwaysOnTop_(Default::alwaysOnTop)
     , opacity_(Default::opacity)
     , bgColor_(Default::backgroundColor)
@@ -40,48 +31,34 @@ QRuler::Settings::Settings()
 {
 }
 
-void QRuler::Settings::load()
+void Qtilities::Settings::load()
 {
-    QSettings settings(QSettings::IniFormat, QSettings::UserScope,
-                       QApplication::organizationName(),
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, QApplication::organizationName(),
                        QApplication::applicationDisplayName());
 
-    settings.beginGroup("Options");
-    alwaysOnTop_
-        = settings.value(QStringLiteral("AlwaysOnTop"), Default::alwaysOnTop)
-              .toBool();
-    bgColor_ = settings
-                   .value(QStringLiteral("BackgroundColor"),
-                          Default::backgroundColor)
-                   .value<QColor>();
-    bdColor_
-        = settings.value(QStringLiteral("BorderColor"), Default::borderColor)
-              .value<QColor>();
-    fgColor_ = settings
-                   .value(QStringLiteral("ForegroundColor"),
-                          Default::foregroundColor)
-                   .value<QColor>();
-    opacity_ = settings.value(QStringLiteral("Opacity"), Default::opacity)
-                   .toString();
-    position_ = settings.value(QStringLiteral("Position"), Default::position)
-                    .toPoint();
-    size_ = settings.value(QStringLiteral("Size"), Default::size).toSize();
+    settings.beginGroup("General");
+    alwaysOnTop_ = settings.value(QSL("AlwaysOnTop"), Default::alwaysOnTop).toBool();
+    bgColor_ = settings.value(QSL("BackgroundColor"), Default::backgroundColor).value<QColor>();
+    bdColor_ = settings.value(QSL("BorderColor"), Default::borderColor).value<QColor>();
+    fgColor_ = settings.value(QSL("ForegroundColor"), Default::foregroundColor).value<QColor>();
+    opacity_ = settings.value(QSL("Opacity"), Default::opacity).toString();
+    position_ = settings.value(QSL("Position"), Default::position).toPoint();
+    size_ = settings.value(QSL("Size"), Default::size).toSize().expandedTo(Default::minimumSize);
     settings.endGroup();
 }
 
-void QRuler::Settings::save()
+void Qtilities::Settings::save()
 {
-    QSettings settings(QSettings::IniFormat, QSettings::UserScope,
-                       QApplication::organizationName(),
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, QApplication::organizationName(),
                        QApplication::applicationDisplayName());
 
-    settings.beginGroup("Options");
-    settings.setValue(QStringLiteral("AlwaysOnTop"), alwaysOnTop_);
-    settings.setValue(QStringLiteral("BackgroundColor"), bgColor_);
-    settings.setValue(QStringLiteral("BorderColor"), bdColor_);
-    settings.setValue(QStringLiteral("ForegroundColor"), fgColor_);
-    settings.setValue(QStringLiteral("Opacity"), opacity_);
-    settings.setValue(QStringLiteral("Position"), position_);
-    settings.setValue(QStringLiteral("Size"), size_);
+    settings.beginGroup("General");
+    settings.setValue(QSL("AlwaysOnTop"), alwaysOnTop_);
+    settings.setValue(QSL("BackgroundColor"), bgColor_);
+    settings.setValue(QSL("BorderColor"), bdColor_);
+    settings.setValue(QSL("ForegroundColor"), fgColor_);
+    settings.setValue(QSL("Opacity"), opacity_);
+    settings.setValue(QSL("Position"), position_);
+    settings.setValue(QSL("Size"), size_);
     settings.endGroup();
 }

@@ -1,65 +1,65 @@
 /*
-    QRuler - Simple on-screen pixel meter.
-    Copyright (C) 2021-2023 Andrea Zanellato <redtid3@gmail.com>
+    MIT License
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, version 3 of the License.
+    Copyright (c) 2021-2023 Andrea Zanellato <redtid3@gmail.com>
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to
+    deal in the Software without restriction, including without limitation the
+    rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+    sell copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+    IN THE SOFTWARE.
 */
 #include "dialogabout.hpp"
 #include "ui_dialogabout.h"
-#include "application.hpp"
-#include "settings.hpp"
 
 #include <QAbstractButton>
+#include <QFile>
+#include <QDebug>
+#include <QTextStream>
 
-QRuler::DialogAbout::DialogAbout(QWidget *parent)
+Qtilities::DialogAbout::DialogAbout(QWidget *parent)
     : QDialog(parent)
-    , ui(new QRuler::Ui::DialogAbout)
+    , ui(new Qtilities::Ui::DialogAbout)
 {
     ui->setupUi(this);
     ui->tabInfo->setLayout(ui->layTabInfo);
     ui->tabAuthors->setLayout(ui->layTabAuthors);
     ui->tabLicense->setLayout(ui->layTabLicense);
 
-    // TODO: Probably needed only on X11
-    Application *theApp = static_cast<Application *>(qApp);
-    Settings &settings = theApp->settings();
-    if (settings.alwaysOnTop()) {
-        Qt::WindowFlags flags = windowFlags();
-        flags |= Qt::WindowStaysOnTopHint;
-        setWindowFlags(flags);
+    QStringList list = {":/info", ":/authors", ":/license"};
+    QStringList texts;
+
+    for (const QString &item : list) {
+        QFile f(item);
+        if (!f.open(QFile::ReadOnly | QFile::Text)) {
+            qDebug() << "Error loading about file" << '\n';
+            return;
+        }
+        QTextStream in(&f);
+        texts.append(in.readAll());
+        f.close();
     }
+    QString toTranslate = texts.at(0);
+    ui->txtInfo->setMarkdown(toTranslate.replace("__AUTHOR__", tr("Author")));
+    ui->txtAuthors->setMarkdown(texts.at(1));
+    ui->txtLicense->setMarkdown(texts.at(2));
 
-    connect(ui->buttonBox, &QDialogButtonBox::clicked, this,
-            &QRuler::DialogAbout::close);
-
-    setWindowIcon(theApp->icon());
+    setWindowIcon(QIcon::fromTheme("help-about", QIcon(":/help-about")));
     setWindowTitle(tr("About"));
+
+    connect(ui->buttonBox, &QDialogButtonBox::clicked, this, &Qtilities::DialogAbout::close);
 }
 
-QRuler::DialogAbout::~DialogAbout() { delete ui; }
-
-void QRuler::DialogAbout::setInfoText(const QString &text)
-{
-    QString translated = text;
-    ui->txtInfo->setMarkdown(translated.replace("__AUTHOR__", tr("Author")));
-}
-
-void QRuler::DialogAbout::setAuthorsText(const QString &text)
-{
-    ui->txtAuthors->setMarkdown(text);
-}
-
-void QRuler::DialogAbout::setLicenseText(const QString &text)
-{
-    ui->txtLicense->setMarkdown(text);
-}
+Qtilities::DialogAbout::~DialogAbout() { delete ui; }
