@@ -15,7 +15,8 @@ defaults:
     shell: bash
 
 env:
-  build_type: Release
+  BUILD_TYPE: Release
+  APP_NAME:   qruler
 
 jobs:
   linux:
@@ -27,10 +28,13 @@ jobs:
         - { name: "GCC", cc: gcc, cxx: g++ }
         - { name: "clang", cc: clang, cxx: clang++ }
     env:
-      cc:           ${{ matrix.config.cc }}
-      cxx:          ${{ matrix.config.cxx }}
-      install_name: qruler-${{ github.ref_name }}-linux
+      cc:  ${{ matrix.config.cc }}
+      cxx: ${{ matrix.config.cxx }}
     steps:
+    - name: Set Archive Name
+      if: ${{ matrix.config.cc == 'gcc' }}
+      run: echo "ARCHIVE_NAME=$APP_NAME-$GITHUB_REF_NAME-linux" >> "$GITHUB_ENV"
+
     - name: Checkout
       uses: actions/checkout@v3
       with:
@@ -51,28 +55,28 @@ jobs:
       run: |
         options=(
           -D CMAKE_INSTALL_PREFIX="/usr"
-          -D CMAKE_build_type="$build_type"
+          -D CMAKE_BUILD_TYPE="$BUILD_TYPE"
           -B ${{ runner.workspace }}/build
         )
         cmake ${options[@]}
 
     - name: Build
-      run: cmake --build ${{ runner.workspace }}/build --config "$build_type"
+      run: cmake --build ${{ runner.workspace }}/build --config "$BUILD_TYPE"
 
     - name: Create package
       if:   ${{ github.ref_type == 'tag' && matrix.config.cc == 'gcc' }}
       working-directory: ${{ runner.workspace }}/build
       run: |
-        DESTDIR="$(pwd)/$install_name" \
-          cmake --build . --config "$build_type" --target install
-        tar czvf "$install_name".tar.gz "$install_name"
+        DESTDIR="$(pwd)/$ARCHIVE_NAME" \
+          cmake --build . --config "$BUILD_TYPE" --target install
+        tar czvf "$ARCHIVE_NAME".tar.gz "$ARCHIVE_NAME"
 
     - name: Upload Artifacts
       if:   ${{ github.ref_type == 'tag' && matrix.config.cc == 'gcc' }}
       uses: actions/upload-artifact@v3
       with:
         name: Linux Artifacts
-        path: ${{ runner.workspace }}/build/${{ env.install_name }}.tar.gz
+        path: ${{ runner.workspace }}/build/${{ env.ARCHIVE_NAME }}.tar.gz
 
   deploy:
     name: Deployment
@@ -99,5 +103,5 @@ jobs:
         draft:      false
         prerelease: false
         files: |
-          qruler-${{ github.ref_name }}-*
-          qruler-${{ github.ref_name }}.*
+          ${{ env.APP_NAME }}-${{ github.ref_name }}-*
+          ${{ env.APP_NAME }}-${{ github.ref_name }}.*
