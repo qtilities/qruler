@@ -51,7 +51,7 @@ void Qtilities::MainWindow::loadSettings()
     Settings &settings = static_cast<Application *>(qApp)->settings();
     Qt::WindowFlags flags = Qt::FramelessWindowHint;
     if (settings.alwaysOnTop())
-        flags |= Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint;
+        flags |= Qt::WindowStaysOnTopHint;
 
     setWindowOpacity(settings.opacity());
     setWindowFlags(flags);
