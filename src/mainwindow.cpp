@@ -24,26 +24,36 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPen>
+#include <QScreen>
+#include <QSizeGrip>
+#include <QVBoxLayout>
 
-Qtilities::MainWindow::MainWindow(QWidget *parent)
-    : QWidget(parent)
+namespace Private {
+static constexpr int lineWidthSmall{5};
+static constexpr int lineWidthMedium{10};
+static constexpr int lineWidthLarge{15};
+} // namespace Private
+
+Qtilities::MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags)
+    : QDialog(parent, flags)
+    , scaleFactor_(QGuiApplication::screenAt(QCursor::pos())->devicePixelRatio())
 {
+    setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_NativeWindow);
     setMouseTracking(true);
+    setSizeGripEnabled(true);
+    setWindowTitle(QGuiApplication::applicationDisplayName());
     loadSettings();
 }
 
 void Qtilities::MainWindow::loadSettings()
 {
     Settings &settings = static_cast<Application *>(qApp)->settings();
-    qreal opacity = settings.opacity().toDouble();
     Qt::WindowFlags flags = Qt::FramelessWindowHint;
-
-    setAttribute(Qt::WA_TranslucentBackground);
-    setWindowOpacity(opacity);
-
     if (settings.alwaysOnTop())
-        flags |= Qt::WindowStaysOnTopHint;
+        flags |= Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint;
 
+    setWindowOpacity(settings.opacity());
     setWindowFlags(flags);
     show(); // update the flags
 }
@@ -59,106 +69,135 @@ QSize Qtilities::MainWindow::minimumSizeHint() const { return sizeHint(); }
 
 QSize Qtilities::MainWindow::sizeHint() const { return Default::minimumSize; }
 
+void Qtilities::MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    isFullScreen() ? showNormal() : showFullScreen();
+    event->accept();
+    QDialog::mouseDoubleClickEvent(event);
+}
+
 void Qtilities::MainWindow::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
-        changeWidth = event->x() > this->width() - 5;
-        changeHeight = event->y() > this->height() - 5;
-        dragPosition = event->globalPos() - frameGeometry().topLeft();
+#if QT_VERSION < 0x060000
+        isChangedWidth_ = event->x() > width() - 5;
+        IsChangedHeight_ = event->y() > height() - 5;
+        dragPosition_ = event->globalPos() - frameGeometry().topLeft();
+#else
+        isChangedWidth_ = (event->position().x() > width() - 5);
+        IsChangedHeight_ = (event->position().y() > height() - 5);
+        dragPosition_ = event->globalPosition().toPoint() - frameGeometry().topLeft();
+#endif
         event->accept();
     } else if (event->button() == Qt::RightButton) {
         Application *theApp = static_cast<Application *>(qApp);
-        theApp->showContextMenu(this->cursor().pos());
+        theApp->showContextMenu(cursor().pos());
     }
 }
 
 void Qtilities::MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    if (event->x() > (this->width() - 5))
-        this->setCursor(Qt::SizeHorCursor);
-    else if (event->y() > (this->height() - 5))
-        this->setCursor(Qt::SizeVerCursor);
+    if (isFullScreen())
+        return;
+
+#if QT_VERSION < 0x060000
+    int px = event->x();
+    int py = event->y();
+    QPoint globalPos = event->globalPos();
+#else
+    qreal px = event->position().x();
+    qreal py = event->position().y();
+    QPoint globalPos = event->globalPosition().toPoint();
+#endif
+    bool isDraggingHorizontally = (px > (width() - 5));
+    bool isDraggingVertically = (py > (height() - 5));
+
+    if (isDraggingHorizontally)
+        setCursor(Qt::SizeHorCursor);
+    else if (isDraggingVertically)
+        setCursor(Qt::SizeVerCursor);
     else
-        this->setCursor(Qt::ArrowCursor);
+        setCursor(Qt::ClosedHandCursor);
 
     if (event->buttons() == Qt::LeftButton) {
-        if ((changeWidth && !changeHeight)) {
+        if ((isChangedWidth_ && !IsChangedHeight_)) {
             int x = event->pos().x();
             if (x > 30)
-                this->setFixedWidth(x);
-        } else if (!changeWidth && changeHeight) {
+                resize(x, height());
+        } else if (!isChangedWidth_ && IsChangedHeight_) {
             int y = event->pos().y();
             if (y > 30)
-                this->setFixedHeight(y);
+                resize(width(), y);
         } else {
-            move(event->globalPos() - dragPosition);
-            event->accept();
+            move(globalPos - dragPosition_);
         }
+        update();
     }
+    QDialog::mouseMoveEvent(event);
 }
 
 void Qtilities::MainWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     Settings &settings = static_cast<Application *>(qApp)->settings();
-    int width = this->width();
-    int height = this->height();
-    QString showText = tr("Width:") + QString::number(width) + tr("px") + "\n" + tr("Height:")
-                       + QString::number(height) + tr("px");
 
     painter.fillRect(rect(), settings.backgroundColor());
+    painter.setPen(QPen(settings.borderColor(), 1));
+    painter.drawRect(rect());
 
-    drawXLine();
-    drawYLine();
+    drawTickMarks(Qt::Horizontal);
+    drawTickMarks(Qt::Vertical);
+
+    int x = pos().x() * scaleFactor_;
+    int y = pos().y() * scaleFactor_;
+    int w = width() * scaleFactor_;
+    int h = height() * scaleFactor_;
+    QString text = tr("Position:") + QString::number(x) + "," + QString::number(y) + "\n" + tr("Width:")
+                   + QString::number(w) + tr("px") + "\n" + tr("Height:") + QString::number(h)
+                   + tr("px");
 
     QPainter painter2(this);
-    painter2.setPen(QPen(settings.borderColor(), 1));
-    painter2.drawRect(0, 0, width - 1, height - 1);
     painter2.setPen(QPen(settings.foregroundColor(), 1));
     painter2.setFont(QFont(Default::fontFamily, Default::measureFontSize));
-    painter2.drawText(rect(), Qt::AlignCenter, showText);
+    painter2.drawText(rect(), Qt::AlignCenter, text);
 }
 
-void Qtilities::MainWindow::drawXLine()
+void Qtilities::MainWindow::drawTickMarks(Qt::Orientation orientation)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, false);
-    painter.setPen(QPen(Qt::black, 1));
+    QPen pen(Qt::black);
+    qreal penW = 1 / scaleFactor_;
+    pen.setWidthF(penW);
+    painter.setPen(pen);
 
-    int lineHeight = 5;
-    for (int i = 0; i < this->width(); i += 2) {
-        lineHeight = 5;
+    QPointF p1, p2;
+    int w = (orientation == Qt::Horizontal) ? width() * scaleFactor_ : height() * scaleFactor_;
+    int lineWidth = Private::lineWidthSmall;
 
-        if (i % 10 == 0) {
-            lineHeight = 10;
-        }
-        if (i % 50 == 0 && i > 0) {
-            lineHeight = 15;
-            painter.setFont(QFont(Default::fontFamily, Default::fontSize, QFont::Bold));
-            painter.drawText(i, 20, 25, 10, Qt::AlignLeft, QString::number(i));
-        }
-        painter.drawLine(QPoint(i, 0), QPoint(i, lineHeight));
-    }
-}
-
-void Qtilities::MainWindow::drawYLine()
-{
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing, false);
-    painter.setPen(QPen(Qt::black, 1));
-
-    int lineHeight = 5;
-    for (int i = 0; i < this->height(); i += 2) {
-        lineHeight = 5;
+    for (int i = 0; i < w; i += 2) {
+        qreal coord = i / scaleFactor_;
+        lineWidth = Private::lineWidthSmall;
 
         if (i % 10 == 0)
-            lineHeight = 10;
+            lineWidth = Private::lineWidthMedium;
 
-        if (i % 50 == 0 && i > 0) {
-            lineHeight = 15;
+        if (i % 20 == 0)
+            lineWidth = Private::lineWidthLarge;
+
+        if (i % 100 == 0 && i > 0) {
+            QRectF valTextRect = (orientation == Qt::Horizontal) ? QRectF(coord, 20, 25, 10)
+                                                                 : QRectF(20, coord, 25, 10);
             painter.setFont(QFont(Default::fontFamily, Default::fontSize, QFont::Bold));
-            painter.drawText(20, i, 25, 10, Qt::AlignLeft, QString::number(i));
+            painter.drawText(valTextRect, Qt::AlignLeft, QString::number(i));
         }
-        painter.drawLine(QPoint(0, i), QPoint(lineHeight, i));
+        if (orientation == Qt::Horizontal) {
+            p1 = QPointF(coord, 0);
+            p2 = QPointF(coord, lineWidth);
+        } else {
+            p1 = QPointF(0, coord);
+            p2 = QPointF(lineWidth, coord);
+        }
+        painter.drawLine(QLineF(p1, p2));
     }
 }

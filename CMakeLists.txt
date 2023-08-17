@@ -6,11 +6,14 @@ project(QRuler
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+option(PROJECT_TRANSLATIONS_UPDATE "Update source translations [default: OFF]" OFF)
+option(PROJECT_TRANSLATION_TEST_ENABLED "Whether to enable translation testing [default: OFF]" OFF)
+set(PROJECT_TRANSLATION_TEST "it" CACHE STRING "Country code of language to test in IDE [default: it]")
+set(PROJECT_QT_VERSION 5 CACHE STRING "Qt version to use [default: 5]")
 #===============================================================================
 # Qt
 #===============================================================================
-option(PROJECT_TRANSLATIONS_UPDATE "Update source translations [default: OFF]" OFF)
-set(PROJECT_QT_VERSION 5 CACHE STRING "Qt version to use [default: 5]")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -47,6 +50,7 @@ set(PROJECT_OTHER_FILES
     .gitignore
     README.md
 )
+source_group("Sources" FILES ${PROJECT_SOURCES})
 source_group("Other Files" FILES ${PROJECT_OTHER_FILES})
 source_group("UI Files" FILES ${PROJECT_UI_FILES})
 #===============================================================================
@@ -82,14 +86,20 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_ID}")
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-    APPLICATION_NAME="${PROJECT_NAME}"
+    APPLICATION_NAME="${PROJECT_ID}"
+    APPLICATION_DISPLAY_NAME="${PROJECT_NAME}"
     ORGANIZATION_NAME="${PROJECT_ORGANIZATION_NAME}"
     ORGANIZATION_DOMAIN="${PROJECT_ORGANIZATION_URL}"
-    PROJECT_ID="${PROJECT_ID}"
     PROJECT_DATA_DIR="${CMAKE_INSTALL_FULL_DATADIR}/${PROJECT_ID}"
     PROJECT_ICON_NAME="${PROJECT_ICON_FILE_NAME}"
     PROJECT_ICON_SYSTEM_PATH="${PROJECT_ICON_FILE_PATH}/${PROJECT_ICON_FILE_NAME}"
+    PROJECT_TEST_LANGUAGE="${PROJECT_TRANSLATION_TEST}"
 )
+if(PROJECT_TRANSLATION_TEST_ENABLED)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE PROJECT_TEST_LANGUAGE_ENABLED=1)
+else()
+    target_compile_definitions(${PROJECT_NAME} PRIVATE PROJECT_TEST_LANGUAGE_ENABLED=0)
+endif()
 #===============================================================================
 # Install application
 #===============================================================================

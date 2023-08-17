@@ -26,15 +26,15 @@ namespace Qtilities {
 
 namespace Default {
 static const bool alwaysOnTop{true};
-static constexpr QColor backgroundColor{QColor(0x92, 0xd7, 0xff)};
-static constexpr QColor borderColor{QColor(0xdd, 0xdd, 0xdd)};
-static constexpr QColor foregroundColor{QColor(0x94, 0x00, 0x80)};
+static constexpr qreal opacity{0.5};
+static constexpr QColor backgroundColor{QColor(0x92, 0xd7, 0xff, opacity)};
+static constexpr QColor borderColor{QColor(0xdd, 0xdd, 0xdd, opacity)};
+static constexpr QColor foregroundColor{QColor(0x94, 0x00, 0x80, opacity)};
 static constexpr QPoint position{QPoint(200, 200)};
 static constexpr QSize size{QSize(240, 120)};
 static constexpr QSize minimumSize{QSize(120, 100)};
 static constexpr int fontSize{7};
 static constexpr int measureFontSize{10};
-static const QString opacity = QStringLiteral("0.5");
 static const QString fontFamily = QStringLiteral("monospace");
 } // namespace Default
 
@@ -46,30 +46,48 @@ public:
     void load();
     void save();
 
-    QColor backgroundColor() const { return bgColor_; }
-    void setBackgroundColor(const QColor &bgColor) { bgColor_ = bgColor; }
+    constexpr QColor backgroundColor() const noexcept { return bgColor_; }
+    void setBackgroundColor(const QColor &bgColor) noexcept
+    {
+        bgColor_ = bgColor;
+        bgColor_.setAlphaF(opacity_);
+    }
 
-    QColor borderColor() const { return bdColor_; }
-    void setBorderColor(const QColor &bdColor) { bdColor_ = bdColor; }
+    constexpr QColor borderColor() const noexcept { return bdColor_; }
+    void setBorderColor(const QColor &bdColor) noexcept
+    {
+        bdColor_ = bdColor;
+        bdColor_.setAlphaF(opacity_);
+    }
 
-    QColor foregroundColor() const { return fgColor_; }
-    void setForegroundColor(const QColor &fgColor) { fgColor_ = fgColor; }
+    constexpr QColor foregroundColor() const noexcept { return fgColor_; }
+    void setForegroundColor(const QColor &fgColor) noexcept
+    {
+        fgColor_ = fgColor;
+        fgColor_.setAlphaF(opacity_);
+    }
 
-    QString opacity() const { return opacity_; }
-    void setOpacity(QString opacity) { opacity_ = opacity; }
+    constexpr qreal opacity() const noexcept { return opacity_; }
+    void setOpacity(qreal opacity) noexcept
+    {
+        opacity_ = opacity;
+        bgColor_.setAlphaF(opacity);
+        bdColor_.setAlphaF(opacity);
+        fgColor_.setAlphaF(opacity);
+    }
 
-    QPoint position() const { return position_; }
-    void setPosition(const QPoint &position) { position_ = position; }
+    constexpr QPoint position() const noexcept { return position_; }
+    constexpr void setPosition(const QPoint &position) noexcept { position_ = position; }
 
-    QSize size() const { return size_; }
-    void setSize(const QSize &size) { size_ = size; }
+    constexpr QSize size() const noexcept { return size_; }
+    constexpr void setSize(const QSize &size) noexcept { size_ = size; }
 
-    bool alwaysOnTop() const { return alwaysOnTop_; }
-    void setAlwaysOnTop(bool alwaysOnTop) { alwaysOnTop_ = alwaysOnTop; }
+    constexpr bool alwaysOnTop() const noexcept { return alwaysOnTop_; }
+    constexpr void setAlwaysOnTop(bool alwaysOnTop) noexcept { alwaysOnTop_ = alwaysOnTop; }
 
 private:
     bool alwaysOnTop_;
-    QString opacity_;
+    qreal opacity_;
     QColor bgColor_;
     QColor bdColor_;
     QColor fgColor_;

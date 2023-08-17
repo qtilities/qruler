@@ -41,7 +41,7 @@ void Qtilities::Settings::load()
     bgColor_ = settings.value(QSL("BackgroundColor"), Default::backgroundColor).value<QColor>();
     bdColor_ = settings.value(QSL("BorderColor"), Default::borderColor).value<QColor>();
     fgColor_ = settings.value(QSL("ForegroundColor"), Default::foregroundColor).value<QColor>();
-    opacity_ = settings.value(QSL("Opacity"), Default::opacity).toString();
+    opacity_ = settings.value(QSL("Opacity"), Default::opacity).toDouble();
     position_ = settings.value(QSL("Position"), Default::position).toPoint();
     size_ = settings.value(QSL("Size"), Default::size).toSize().expandedTo(Default::minimumSize);
     settings.endGroup();

@@ -4,7 +4,7 @@
 # Essential, non translatable application information (except DESCRIPTION).
 # Translatable strings are passed via code.
 #===============================================================================
-string(TOLOWER ${PROJECT_NAME} PROJECT_ID)   # Might not be compatible with AppStream
+string(TOLOWER ${PROJECT_NAME} PROJECT_ID)
 list(APPEND PROJECT_CATEGORIES "Qt;Utility") # Freedesktop menu categories
 list(APPEND PROJECT_KEYWORDS   "screen;ruler")
 set(PROJECT_AUTHOR_NAME        "Andrea Zanellato")

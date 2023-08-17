@@ -60,4 +60,5 @@ Translations are managed via [LXQt Weblate] Platform.
 [Openclipart]:     https://openclipart.org/
 [Oxygen icon set]: https://github.com/KDE/oxygen-icons/
 [Packages]:        https://repology.org/badge/vertical-allrepos/qruler.svg
+[Qtilitools]:      https://github.com/qtilities/qtilitools/
 [Translations]:    https://translate.lxqt-project.org/widgets/qtilities/-/qruler/multi-auto.svg

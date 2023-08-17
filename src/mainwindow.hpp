@@ -17,34 +17,34 @@
 */
 #pragma once
 
-#include <QWidget>
+#include <QDialog>
 
 namespace Qtilities {
 
-class MainWindow : public QWidget
+class MainWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags());
 
     void loadSettings();
     void saveSettings();
 
-protected:
-    void mousePressEvent(QMouseEvent *) override;
+private:
+    void mouseDoubleClickEvent(QMouseEvent *) override;
     void mouseMoveEvent(QMouseEvent *) override;
+    void mousePressEvent(QMouseEvent *) override;
     void paintEvent(QPaintEvent *) override;
 
-private:
     QSize minimumSizeHint() const override;
     QSize sizeHint() const override;
 
-    void drawXLine();
-    void drawYLine();
+    void drawTickMarks(Qt::Orientation);
 
-    bool changeWidth;
-    bool changeHeight;
-    QPoint dragPosition;
+    bool isChangedWidth_;
+    bool IsChangedHeight_;
+    QPoint dragPosition_;
+    qreal scaleFactor_;
 };
 } // namespace Qtilities

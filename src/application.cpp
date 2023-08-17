@@ -29,8 +29,8 @@ Qtilities::Application::Application(int argc, char *argv[])
     : QApplication(argc, argv)
     , ctxMenu_(new QMenu)
 {
-    setApplicationName(PROJECT_ID);
-    setApplicationDisplayName(APPLICATION_NAME);
+    setApplicationName(APPLICATION_NAME);
+    setApplicationDisplayName(APPLICATION_DISPLAY_NAME);
     setOrganizationName(ORGANIZATION_NAME);
     setOrganizationDomain(ORGANIZATION_DOMAIN);
 
@@ -40,11 +40,11 @@ Qtilities::Application::Application(int argc, char *argv[])
 
 void Qtilities::Application::initLocale()
 {
-#if 1
-    QLocale locale = QLocale::system();
-#else
-    QLocale locale(QLocale("it"));
+#if PROJECT_TEST_LANGUAGE_ENABLED
+    QLocale locale(QLocale(PROJECT_TEST_LANGUAGE));
     QLocale::setDefault(locale);
+#else
+    QLocale locale = QLocale::system();
 #endif
     // Qt translations (buttons and the like)
     QString translationsPath
@@ -92,11 +92,10 @@ void Qtilities::Application::initUi()
     if (appIcon_.isNull())
         appIcon_ = QIcon(icoSysPath);
 
-    mainWindow_ = new Qtilities::MainWindow;
+    mainWindow_ = new Qtilities::MainWindow(nullptr, Qt::FramelessWindowHint);
+    mainWindow_->setWindowIcon(appIcon_);
     mainWindow_->move(settings_.position());
     mainWindow_->resize(settings_.size());
-    mainWindow_->setWindowIcon(appIcon_);
-    mainWindow_->setWindowTitle(applicationDisplayName());
     mainWindow_->show();
 
     ctxMenu_->addAction(QIcon::fromTheme("help-about", QIcon(":/help-about")), tr("&About"), this,
@@ -129,13 +128,20 @@ void Qtilities::Application::initUi()
 void Qtilities::Application::about()
 {
     DialogAbout about(mainWindow_);
+    connect(&about, &QDialog::rejected, mainWindow_, &MainWindow::show);
+    mainWindow_->hide();
     about.exec();
 }
 
 void Qtilities::Application::preferences()
 {
     DialogPrefs prefs(mainWindow_);
-    connect(&prefs, &QDialog::accepted, mainWindow_, &MainWindow::loadSettings);
+    connect(&prefs, &QDialog::rejected, mainWindow_, &MainWindow::show);
+    connect(&prefs, &QDialog::accepted, mainWindow_, [this]() {
+        mainWindow_->loadSettings();
+        mainWindow_->show();
+    });
+    mainWindow_->hide();
     prefs.loadSettings();
     prefs.exec();
 }
@@ -144,6 +150,10 @@ void Qtilities::Application::showContextMenu(const QPoint &position) { ctxMenu_-
 
 int main(int argc, char *argv[])
 {
+// HIDPI scaling is already set by default from Qt6
+#if QT_VERSION < 0x060000
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
     Qtilities::Application app(argc, argv);
     return app.exec();
 }

@@ -27,8 +27,13 @@
 #include "litebutton.hpp"
 #include "settings.hpp"
 
+#include <QCheckBox>
 #include <QColorDialog>
+#include <QDialogButtonBox>
 #include <QPushButton>
+#include <QSpinBox>
+
+#include <cstdlib>
 
 Qtilities::DialogPrefs::DialogPrefs(QWidget *parent)
     : QDialog(parent)
@@ -54,7 +59,7 @@ void Qtilities::DialogPrefs::loadSettings()
 {
     Settings &settings = static_cast<Application *>(qApp)->settings();
     ui->chkAlwaysOnTop->setChecked(settings.alwaysOnTop());
-    ui->sbxOpacity->setValue(settings.opacity().toDouble());
+    ui->sbxOpacity->setValue(settings.opacity());
 
     QColor bgColor = settings.backgroundColor();
     QColor bdColor = settings.borderColor();
@@ -73,7 +78,7 @@ void Qtilities::DialogPrefs::accept()
 {
     Settings &settings = static_cast<Application *>(qApp)->settings();
     settings.setAlwaysOnTop(ui->chkAlwaysOnTop->isChecked());
-    settings.setOpacity(QString::number(ui->sbxOpacity->value(), 'g', 2));
+    settings.setOpacity(ui->sbxOpacity->value());
     settings.setBackgroundColor(ui->lbnBgColor->palette().color(QPalette::Window));
     settings.setBorderColor(ui->lbnBdColor->palette().color(QPalette::Window));
     settings.setForegroundColor(ui->lbnFgColor->palette().color(QPalette::Window));
@@ -90,9 +95,11 @@ void Qtilities::DialogPrefs::setButtonColor(LiteButton *button)
     else
         initialColor = settings.foregroundColor();
 
-    const QColor color = QColorDialog::getColor(initialColor, this);
-    if (color.isValid()) {
-        button->setPalette(QPalette(color));
-        button->setText(color.name());
-    }
+    QColorDialog clrDlg(initialColor, this);
+    if (clrDlg.exec() == QDialog::Rejected)
+        return;
+
+    const QColor color = clrDlg.selectedColor();
+    button->setPalette(QPalette(color));
+    button->setText(color.name());
 }
