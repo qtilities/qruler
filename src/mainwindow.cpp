@@ -51,7 +51,7 @@ void Qtilities::MainWindow::loadSettings()
     Settings &settings = static_cast<Application *>(qApp)->settings();
     Qt::WindowFlags flags = Qt::FramelessWindowHint;
     if (settings.alwaysOnTop())
-        flags |= Qt::WindowStaysOnTopHint;
+        flags |= Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint;
 
     setWindowOpacity(settings.opacity());
     setWindowFlags(flags);
@@ -71,7 +71,17 @@ QSize Qtilities::MainWindow::sizeHint() const { return Default::minimumSize; }
 
 void Qtilities::MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    isFullScreen() ? showNormal() : showFullScreen();
+    // For some reason showFullScreen() doesn't work with X11BypassWindowManagerHint flag set,
+    // so before to go fullscreen unset it.
+    if (isFullScreen()) {
+        Qt::WindowFlags flags = windowFlags() |= Qt::X11BypassWindowManagerHint;
+        setWindowFlags(flags);
+        showNormal();
+    } else {
+        Qt::WindowFlags flags = windowFlags() & ~Qt::X11BypassWindowManagerHint;
+        setWindowFlags(flags);
+        showFullScreen();
+    }
     event->accept();
     QDialog::mouseDoubleClickEvent(event);
 }
