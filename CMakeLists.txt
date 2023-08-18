@@ -130,11 +130,6 @@ Qt version:                       ${QT_VERSION}
 Build type:                       ${CMAKE_BUILD_TYPE}
 Install prefix:                   ${CMAKE_INSTALL_PREFIX}
 Update translations before build: ${PROJECT_TRANSLATIONS_UPDATE}
-
-CXX Debug flags:                  ${CMAKE_CXX_FLAGS_DEBUG}
-CXX Release flags:                ${CMAKE_CXX_FLAGS_RELEASE}
-CXX MinSize flags:                ${CMAKE_CXX_FLAGS_MINSIZEREL}
-CXX RelWithDebInfo flags:         ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}
 ")
 
 if(QT_VERSION_MAJOR EQUAL 6)
