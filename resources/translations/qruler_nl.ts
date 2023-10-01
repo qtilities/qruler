@@ -56,7 +56,7 @@
     <message>
         <location filename="../../src/dialogabout.cpp" line="55"/>
         <source>Author</source>
-        <translation>Ontwikkelaar</translation>
+        <translation>Maker</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.cpp" line="60"/>
