@@ -36,7 +36,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="81"/>
         <source>Thanks</source>
-        <translation>Ačiū</translation>
+        <translation>Padėkos</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="119"/>
