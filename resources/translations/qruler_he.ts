@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fi">
+<TS version="2.1" language="he">
 <context>
     <name>Qtilities::Application</name>
     <message>
         <location filename="../../src/application.cpp" line="102"/>
         <source>&amp;About</source>
-        <translation>&amp;Tietoja</translation>
+        <translation>על &amp;אודות</translation>
     </message>
     <message>
         <location filename="../../src/application.cpp" line="106"/>
         <location filename="../../src/application.cpp" line="111"/>
         <source>&amp;Preferences</source>
-        <translation>&amp;Asetukset</translation>
+        <translation>ה&amp;עדפות</translation>
     </message>
     <message>
         <location filename="../../src/application.cpp" line="107"/>
         <location filename="../../src/application.cpp" line="112"/>
         <source>&amp;Quit</source>
-        <translation>&amp;Lopeta</translation>
+        <translation>י&amp;ציאה</translation>
     </message>
 </context>
 <context>
@@ -26,42 +26,42 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="27"/>
         <source>Information</source>
-        <translation>Tietoja</translation>
+        <translation>מידע</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="62"/>
         <source>qrc:/about.html</source>
-        <translation></translation>
+        <translation>qrc:/about.html</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="81"/>
         <source>Thanks</source>
-        <translation>Kiitokset</translation>
+        <translation>תודות</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="119"/>
         <source>qrc:/thanks.html</source>
-        <translation></translation>
+        <translation>qrc:/thanks.html</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="138"/>
         <source>License</source>
-        <translation>Lisenssi</translation>
+        <translation>רישיון</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="176"/>
         <source>qrc:/license.html</source>
-        <translation></translation>
+        <translation>qrc:/license.html</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.cpp" line="55"/>
         <source>Author</source>
-        <translation>Tekijä</translation>
+        <translation>יוצר</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.cpp" line="60"/>
         <source>About</source>
-        <translation>Tietoja</translation>
+        <translation>על אודות</translation>
     </message>
 </context>
 <context>
@@ -69,42 +69,42 @@
     <message>
         <location filename="../../src/dialogprefs.ui" line="36"/>
         <source>General</source>
-        <translation>Yleiset</translation>
+        <translation>כללי</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="70"/>
         <source>Opacity:</source>
-        <translation>Peittävyys:</translation>
+        <translation>אטימות:</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="77"/>
         <source>Always on top</source>
-        <translation>Aina ylimpänä</translation>
+        <translation>תמיד מרחף</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="99"/>
         <source>Colors</source>
-        <translation>Värit</translation>
+        <translation>צבעים</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="120"/>
         <source>Background</source>
-        <translation>Tausta</translation>
+        <translation>רקע</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="143"/>
         <source>Border</source>
-        <translation>Reuna</translation>
+        <translation>מסגרת</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="160"/>
         <source>Text</source>
-        <translation>Teksti</translation>
+        <translation>טקסט</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.cpp" line="41"/>
         <source>Preferences</source>
-        <translation>Asetukset</translation>
+        <translation>העדפות</translation>
     </message>
 </context>
 <context>
@@ -112,18 +112,18 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="106"/>
         <source>Width:</source>
-        <translation>Leveys:</translation>
+        <translation>רוחב:</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="106"/>
         <location filename="../../src/mainwindow.cpp" line="107"/>
         <source>px</source>
-        <translation>px</translation>
+        <translation>פיקסלים</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="106"/>
         <source>Height:</source>
-        <translation>Korkeus:</translation>
+        <translation>גובה:</translation>
     </message>
 </context>
 </TS>
