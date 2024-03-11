@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ko">
+<TS version="2.1" language="pl">
 <context>
     <name>Qtilities::Application</name>
     <message>
         <location filename="../../src/application.cpp" line="102"/>
         <source>&amp;About</source>
-        <translation>정보(&amp;A)</translation>
+        <translation>&amp;Informacje</translation>
     </message>
     <message>
         <location filename="../../src/application.cpp" line="106"/>
         <location filename="../../src/application.cpp" line="111"/>
         <source>&amp;Preferences</source>
-        <translation>환경설정(&amp;P)</translation>
+        <translation>&amp;Preferencje</translation>
     </message>
     <message>
         <location filename="../../src/application.cpp" line="107"/>
         <location filename="../../src/application.cpp" line="112"/>
         <source>&amp;Quit</source>
-        <translation>종료(&amp;Q)</translation>
+        <translation>&amp;Wyjdź</translation>
     </message>
 </context>
 <context>
@@ -26,7 +26,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="27"/>
         <source>Information</source>
-        <translation>정보</translation>
+        <translation>Informacje</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="62"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="81"/>
         <source>Thanks</source>
-        <translation>도움을 주신 분들</translation>
+        <translation>Podziękowania</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="119"/>
@@ -46,7 +46,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="138"/>
         <source>License</source>
-        <translation>라이선스</translation>
+        <translation>Licencja</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="176"/>
@@ -56,12 +56,12 @@
     <message>
         <location filename="../../src/dialogabout.cpp" line="55"/>
         <source>Author</source>
-        <translation>작성자</translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.cpp" line="60"/>
         <source>About</source>
-        <translation>정보</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -69,42 +69,42 @@
     <message>
         <location filename="../../src/dialogprefs.ui" line="36"/>
         <source>General</source>
-        <translation>일반</translation>
+        <translation>Ogólne</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="70"/>
         <source>Opacity:</source>
-        <translation>불투명도:</translation>
+        <translation>Krycie:</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="77"/>
         <source>Always on top</source>
-        <translation>항상 위에</translation>
+        <translation>Zawsze na wierzchu</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="99"/>
         <source>Colors</source>
-        <translation>색상</translation>
+        <translation>Kolory</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="120"/>
         <source>Background</source>
-        <translation>배경</translation>
+        <translation>Tło</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="143"/>
         <source>Border</source>
-        <translation>테두리</translation>
+        <translation>Obramowanie</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="160"/>
         <source>Text</source>
-        <translation>텍스트</translation>
+        <translation>Tekst</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.cpp" line="41"/>
         <source>Preferences</source>
-        <translation>환경설정</translation>
+        <translation>Preferencje</translation>
     </message>
 </context>
 <context>
@@ -112,7 +112,7 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="106"/>
         <source>Width:</source>
-        <translation>너비:</translation>
+        <translation>Szerokość:</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="106"/>
@@ -123,7 +123,7 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="106"/>
         <source>Height:</source>
-        <translation>높이:</translation>
+        <translation>Wysokość:</translation>
     </message>
 </context>
 </TS>

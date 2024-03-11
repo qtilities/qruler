@@ -36,7 +36,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="81"/>
         <source>Thanks</source>
-        <translation>Dank</translation>
+        <translation>Danke</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="119"/>
@@ -61,7 +61,7 @@
     <message>
         <location filename="../../src/dialogabout.cpp" line="60"/>
         <source>About</source>
-        <translation>Information</translation>
+        <translation>Über</translation>
     </message>
 </context>
 <context>
