@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru">
+<TS version="2.1" language="pt">
 <context>
     <name>Qtilities::Application</name>
     <message>
         <location filename="../../src/application.cpp" line="102"/>
         <source>&amp;About</source>
-        <translation>&amp;О программе</translation>
+        <translation>&amp;Sobre</translation>
     </message>
     <message>
         <location filename="../../src/application.cpp" line="106"/>
         <location filename="../../src/application.cpp" line="111"/>
         <source>&amp;Preferences</source>
-        <translation>&amp;Настройки</translation>
+        <translation>&amp;Preferências</translation>
     </message>
     <message>
         <location filename="../../src/application.cpp" line="107"/>
         <location filename="../../src/application.cpp" line="112"/>
         <source>&amp;Quit</source>
-        <translation>&amp;Выход</translation>
+        <translation>&amp;Sair</translation>
     </message>
 </context>
 <context>
@@ -26,7 +26,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="27"/>
         <source>Information</source>
-        <translation>Сведения</translation>
+        <translation>Informação</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="62"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="81"/>
         <source>Thanks</source>
-        <translation>Благодарности</translation>
+        <translation>Obrigado</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="119"/>
@@ -46,7 +46,7 @@
     <message>
         <location filename="../../src/dialogabout.ui" line="138"/>
         <source>License</source>
-        <translation>Лицензия</translation>
+        <translation>Licença</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.ui" line="176"/>
@@ -56,12 +56,12 @@
     <message>
         <location filename="../../src/dialogabout.cpp" line="55"/>
         <source>Author</source>
-        <translation>Автор</translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <location filename="../../src/dialogabout.cpp" line="60"/>
         <source>About</source>
-        <translation>О программе</translation>
+        <translation>Acerca</translation>
     </message>
 </context>
 <context>
@@ -69,42 +69,42 @@
     <message>
         <location filename="../../src/dialogprefs.ui" line="36"/>
         <source>General</source>
-        <translation>Общее</translation>
+        <translation>Geral</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="70"/>
         <source>Opacity:</source>
-        <translation>Непрозрачность:</translation>
+        <translation>Opacidade:</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="77"/>
         <source>Always on top</source>
-        <translation>Всегда на переднем плане</translation>
+        <translation>Sempre no topo</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="99"/>
         <source>Colors</source>
-        <translation>Цвета</translation>
+        <translation>Cores</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="120"/>
         <source>Background</source>
-        <translation>Фон</translation>
+        <translation>Fundo</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="143"/>
         <source>Border</source>
-        <translation>Граница</translation>
+        <translation>Margem</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.ui" line="160"/>
         <source>Text</source>
-        <translation>Текст</translation>
+        <translation>Texto</translation>
     </message>
     <message>
         <location filename="../../src/dialogprefs.cpp" line="41"/>
         <source>Preferences</source>
-        <translation>Настройки</translation>
+        <translation>Preferências</translation>
     </message>
 </context>
 <context>
@@ -112,18 +112,18 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="106"/>
         <source>Width:</source>
-        <translation>Ширина:</translation>
+        <translation>Largura:</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="106"/>
         <location filename="../../src/mainwindow.cpp" line="107"/>
         <source>px</source>
-        <translation>пкс</translation>
+        <translation>px</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="106"/>
         <source>Height:</source>
-        <translation>Высота:</translation>
+        <translation>Altura:</translation>
     </message>
 </context>
 </TS>
